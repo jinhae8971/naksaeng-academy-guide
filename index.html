@@ -168,11 +168,50 @@
   .soon{border:1px dashed var(--line-strong); background:var(--surface-2); border-radius:var(--r); padding:16px 17px; color:var(--faint); font-size:14px}
   .soon b{color:var(--ink-soft); font-weight:800}
 
+  /* schedule (시간표) */
+  .sch-top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin:14px 0 8px}
+  .sch-summary{font-size:13px; color:var(--ink-soft); font-weight:700}
+  .sch-addbtn{appearance:none; cursor:pointer; font-family:inherit; font-weight:800; font-size:13.5px; color:#fff; background:var(--teal); border:none; border-radius:999px; padding:9px 16px; box-shadow:var(--shadow-sm); transition:transform .12s, background .15s}
+  .sch-addbtn:hover{background:var(--teal-deep)} .sch-addbtn:active{transform:translateY(1px)}
+  .sch-form{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:15px; box-shadow:var(--shadow-sm); margin-bottom:14px}
+  .ff{margin-bottom:11px} .ff:last-child{margin-bottom:0}
+  .ff-l{display:block; font-size:12.5px; font-weight:800; color:var(--ink-soft); margin-bottom:6px}
+  .ff-in{width:100%; font-family:inherit; font-size:14.5px; color:var(--ink); background:var(--surface-2); border:1px solid var(--line-strong); border-radius:9px; padding:10px 12px; -webkit-appearance:none; appearance:none}
+  .ff-in:focus{outline:none; border-color:var(--teal); background:#fff}
+  .ff-row{display:flex; gap:10px} .ff-row .ff{flex:1}
+  .daypicks{display:flex; gap:5px; flex-wrap:wrap}
+  .daypick{appearance:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:13.5px; width:38px; height:38px; border-radius:9px; border:1px solid var(--line-strong); background:var(--surface-2); color:var(--ink-soft); transition:.12s}
+  .daypick.on{background:var(--teal); border-color:var(--teal); color:#fff}
+  .ff-hint{font-size:12.5px; color:var(--amber-ink); font-weight:700; margin-top:8px; min-height:1px}
+  .ff-actions{display:flex; gap:8px; justify-content:flex-end; margin-top:12px}
+  .btn2{appearance:none; cursor:pointer; font-family:inherit; font-weight:800; font-size:14px; border-radius:9px; padding:9px 18px; border:1px solid transparent; transition:transform .12s}
+  .btn2.ghost{background:#fff; color:var(--ink-soft); border-color:var(--line-strong)}
+  .btn2.primary{background:var(--teal); color:#fff}
+  .btn2:active{transform:translateY(1px)}
+  .day-h{display:flex; align-items:center; justify-content:space-between; margin:16px 0 8px; padding-bottom:5px; border-bottom:2px solid var(--teal-soft)}
+  .day-h>span:first-child{font-weight:800; font-size:16px; color:var(--teal-deep)}
+  .day-c{font-size:12px; font-weight:700; color:var(--faint)}
+  .day-empty{font-size:13px; color:var(--faint); padding:0 2px 6px}
+  .ev{display:flex; align-items:stretch; gap:12px; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-sm); padding:12px 13px; margin-bottom:8px; box-shadow:var(--shadow-sm)}
+  .ev-time{flex:none; width:54px; text-align:center; font-weight:800; font-size:14px; color:var(--teal-deep); font-variant-numeric:tabular-nums; line-height:1.25; display:flex; flex-direction:column; justify-content:center; border-right:1px solid var(--line); padding-right:10px}
+  .ev-time span{font-size:11px; color:var(--faint); font-weight:700}
+  .ev-main{flex:1; min-width:0; display:flex; flex-direction:column; justify-content:center; gap:5px}
+  .ev-name{font-weight:800; font-size:15px; letter-spacing:-.02em; line-height:1.3}
+  .ev-tags{display:flex; align-items:center; gap:7px; flex-wrap:wrap}
+  .ride{font-size:11.5px; font-weight:800; padding:2px 9px; border-radius:999px}
+  .ride.sh-shuttle{background:var(--teal-soft); color:var(--teal-deep); border:1px solid var(--teal-line)}
+  .ride.sh-ride{background:var(--amber-soft); color:var(--amber-ink); border:1px solid var(--amber-line)}
+  .ride.sh-walk{background:var(--green-soft); color:var(--green-ink); border:1px solid #CFE3D6}
+  .ride.sh-etc{background:#EEF1F4; color:var(--ink-soft); border:1px solid var(--line)}
+  .ev-memo{font-size:12.5px; color:var(--faint)}
+  .ev-del{flex:none; align-self:center; appearance:none; cursor:pointer; background:none; border:none; color:var(--faint); font-size:20px; line-height:1; padding:4px 7px; border-radius:8px; transition:.12s}
+  .ev-del:hover{color:var(--red); background:#FBECE9}
+
   footer{margin-top:18px; padding:18px 0 6px; color:var(--faint); font-size:12.5px; border-top:1px solid var(--line)}
   footer p{margin:4px 0}
 
   .tabbar{position:fixed; left:0; right:0; bottom:0; z-index:60; background:rgba(255,255,255,.97); backdrop-filter:saturate(160%) blur(10px); border-top:1px solid var(--line); box-shadow:0 -2px 18px rgba(16,42,60,.05)}
-  .tabbar .inner{max-width:var(--maxw); margin:0 auto; display:grid; grid-template-columns:repeat(5,1fr)}
+  .tabbar .inner{max-width:var(--maxw); margin:0 auto; display:grid; grid-template-columns:repeat(6,1fr)}
   .tab{appearance:none; background:none; border:none; cursor:pointer; font-family:inherit; color:var(--faint); padding:9px 2px; padding-bottom:calc(9px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; align-items:center; gap:3px; transition:color .15s}
   .tab .ti{display:grid; place-items:center; height:24px}
   .tab .tl{font-size:11px; font-weight:700; letter-spacing:-.02em}
@@ -211,9 +250,9 @@
     </div>
 
     <div class="qrow">
-      <button class="qlink" data-go="safety">🛡️ 통학버스 안전</button>
       <button class="qlink" data-go="academy">🏫 학원 보기</button>
-      <button class="qlink" data-go="more">🔗 사이트·번호</button>
+      <button class="qlink" data-go="schedule">🗓️ 시간표</button>
+      <button class="qlink" data-go="safety">🛡️ 통학버스 안전</button>
     </div>
 
     <div class="subhead"><span class="bar"></span>핵심 요약</div>
@@ -314,6 +353,61 @@
     </div>
   </section>
 
+  <section class="panel" data-tab="schedule">
+    <div class="ptitle"><span class="pic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18"/><path d="M8 2.5v4M16 2.5v4"/></svg></span><div><h2>시간표</h2><span class="ps">학원 라이딩 일정 짜기 (기기에 저장)</span></div></div>
+
+    <div class="note">요일·시간·이동수단(셔틀/직접 라이딩/도보)을 등록해 한 주 라이딩 동선을 한눈에 보세요. <b>‘+ 일정 추가’</b>를 눌러 시작합니다.</div>
+
+    <div class="sch-top">
+      <div class="sch-summary" id="schSummary"></div>
+      <button class="sch-addbtn" id="schToggle">+ 일정 추가</button>
+    </div>
+
+    <div class="sch-form" id="schForm" hidden>
+      <div class="ff">
+        <label class="ff-l">요일 (여러 개 선택 가능)</label>
+        <div class="daypicks" id="daypicks">
+          <button type="button" class="daypick" data-day="월">월</button>
+          <button type="button" class="daypick" data-day="화">화</button>
+          <button type="button" class="daypick" data-day="수">수</button>
+          <button type="button" class="daypick" data-day="목">목</button>
+          <button type="button" class="daypick" data-day="금">금</button>
+          <button type="button" class="daypick" data-day="토">토</button>
+          <button type="button" class="daypick" data-day="일">일</button>
+        </div>
+      </div>
+      <div class="ff">
+        <label class="ff-l" for="fAcademy">학원·활동</label>
+        <input class="ff-in" id="fAcademy" list="acList" placeholder="학원 선택 또는 직접 입력" autocomplete="off">
+        <datalist id="acList"></datalist>
+      </div>
+      <div class="ff-row">
+        <div class="ff"><label class="ff-l" for="fStart">시작</label><input class="ff-in" type="time" id="fStart"></div>
+        <div class="ff"><label class="ff-l" for="fEnd">종료</label><input class="ff-in" type="time" id="fEnd"></div>
+      </div>
+      <div class="ff">
+        <label class="ff-l" for="fRide">이동수단</label>
+        <select class="ff-in" id="fRide">
+          <option value="셔틀">셔틀버스</option>
+          <option value="라이딩">직접 라이딩(차량)</option>
+          <option value="도보">도보</option>
+          <option value="기타">기타</option>
+        </select>
+      </div>
+      <div class="ff">
+        <label class="ff-l" for="fMemo">메모 (선택)</label>
+        <input class="ff-in" id="fMemo" placeholder="예: 정문 앞 하차 / 끝나고 픽업">
+      </div>
+      <div class="ff-hint" id="fHint"></div>
+      <div class="ff-actions">
+        <button type="button" class="btn2 ghost" id="schCancel">취소</button>
+        <button type="button" class="btn2 primary" id="schAdd">추가</button>
+      </div>
+    </div>
+
+    <div id="schList"></div>
+  </section>
+
   <section class="panel" data-tab="check">
     <div class="ptitle"><span class="pic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><div><h2>부모 안심 체크리스트</h2><span class="ps">학원 방문 때 탭하며 점검 (기기에 저장)</span></div></div>
     <div class="progress"><span id="ckCount">0 / 12</span><span class="bar"><i id="ckBar"></i></span></div>
@@ -366,6 +460,7 @@
     <button class="tab" data-go="home"><span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="tl">홈</span></button>
     <button class="tab" data-go="safety"><span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="tl">안전</span></button>
     <button class="tab" data-go="academy"><span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-4 9 4-9 4-9-4z"/><path d="M7 11v4c0 1 2.2 2.5 5 2.5s5-1.5 5-2.5v-4"/></svg></span><span class="tl">학원</span></button>
+    <button class="tab" data-go="schedule"><span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18"/><path d="M8 2.5v4M16 2.5v4"/></svg></span><span class="tl">시간표</span></button>
     <button class="tab" data-go="check"><span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span class="tl">체크</span></button>
     <button class="tab" data-go="more"><span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><span class="tl">모음</span></button>
   </div>
@@ -555,8 +650,69 @@
   $("#updHome").textContent = "🗓️ "+DATA.updated;
   $("#updFoot").textContent = "마지막 업데이트 "+DATA.updated+" · 등록 전 각 학원·기관에 직접 확인하세요.";
 
+  /* ===== 시간표 (학원 라이딩 일정) ===== */
+  var SKEY = "naksaeng_schedule_v1";
+  var DAYS = ["월","화","수","목","금","토","일"];
+  function schLoad(){ try{ return JSON.parse(localStorage.getItem(SKEY)||"[]"); }catch(e){ return []; } }
+  function schSave(a){ try{ localStorage.setItem(SKEY, JSON.stringify(a)); }catch(e){} }
+  var sched = schLoad();
+
+  // 학원 이름 자동완성 목록
+  var nameSet = {};
+  DATA.arts.concat(DATA.engs).forEach(function(a){ nameSet[a.n]=1; });
+  DATA.dist.forEach(function(r){ nameSet[r[0]]=1; });
+  $("#acList").innerHTML = Object.keys(nameSet).map(function(n){ return '<option value="'+esc(n)+'"></option>'; }).join("");
+
+  function rideClass(r){ return r==="셔틀"?"sh-shuttle": r==="라이딩"?"sh-ride": r==="도보"?"sh-walk":"sh-etc"; }
+  function rideLabel(r){ return r==="셔틀"?"🚌 셔틀": r==="라이딩"?"🚗 라이딩": r==="도보"?"🚶 도보":"기타"; }
+
+  function schRender(){
+    var rides = sched.reduce(function(s,e){ return s + (e.days?e.days.length:0); }, 0);
+    $("#schSummary").textContent = sched.length ? (sched.length+"개 수업 · 주 "+rides+"회 이동") : "";
+    var c = $("#schList");
+    if(!sched.length){
+      c.innerHTML = '<div class="soon"><b>아직 등록된 일정이 없어요</b><br>위 <b>‘+ 일정 추가’</b>로 학원 수업·라이딩을 요일별로 짜보세요. 입력한 내용은 이 기기에 저장됩니다.</div>';
+      return;
+    }
+    var html = "";
+    DAYS.forEach(function(d,di){
+      var items = sched.filter(function(e){ return e.days && e.days.indexOf(d)>=0; })
+                       .sort(function(a,b){ return (a.start||"").localeCompare(b.start||""); });
+      if(di>=5 && !items.length) return;
+      html += '<div class="day-h"><span>'+d+'요일</span><span class="day-c">'+(items.length? items.length+'개' : '비어 있음')+'</span></div>';
+      if(!items.length){ html += '<div class="day-empty">일정 없음</div>'; return; }
+      items.forEach(function(e){
+        html += '<div class="ev"><div class="ev-time">'+esc(e.start||'')+'<span>~'+esc(e.end||'')+'</span></div>'
+          +'<div class="ev-main"><div class="ev-name">'+esc(e.academy||'학원')+'</div>'
+          +'<div class="ev-tags"><span class="ride '+rideClass(e.ride)+'">'+esc(rideLabel(e.ride))+'</span>'
+          +(e.memo? '<span class="ev-memo">'+esc(e.memo)+'</span>' : '')+'</div></div>'
+          +'<button type="button" class="ev-del" data-del="'+e.id+'" aria-label="삭제">×</button></div>';
+      });
+    });
+    c.innerHTML = html;
+  }
+  schRender();
+
+  var schForm = $("#schForm");
+  function schShow(show){ schForm.hidden = !show; if(show){ $("#fHint").textContent=""; } }
+  $("#schToggle").addEventListener("click", function(){ schShow(schForm.hidden); if(!schForm.hidden){ schForm.scrollIntoView({behavior:"smooth", block:"nearest"}); } });
+  $("#schCancel").addEventListener("click", function(){ schShow(false); });
+  $$(".daypick").forEach(function(b){ b.addEventListener("click", function(){ b.classList.toggle("on"); }); });
+  function schReset(){ $$(".daypick").forEach(function(b){ b.classList.remove("on"); }); $("#fAcademy").value=""; $("#fStart").value=""; $("#fEnd").value=""; $("#fRide").value="셔틀"; $("#fMemo").value=""; }
+  $("#schAdd").addEventListener("click", function(){
+    var days = $$(".daypick.on").map(function(b){ return b.getAttribute("data-day"); });
+    var academy = $("#fAcademy").value.trim(), start=$("#fStart").value, end=$("#fEnd").value, ride=$("#fRide").value, memo=$("#fMemo").value.trim();
+    if(!days.length || !academy || !start){ $("#fHint").textContent = "요일·학원·시작 시간은 꼭 입력해 주세요."; return; }
+    sched.push({ id:"s"+Date.now().toString(36)+Math.random().toString(36).slice(2,5), days:days, academy:academy, start:start, end:end, ride:ride, memo:memo });
+    schSave(sched); schRender(); schReset(); schShow(false);
+  });
+  document.addEventListener("click", function(e){
+    var del = e.target.closest ? e.target.closest("[data-del]") : null;
+    if(del){ var id=del.getAttribute("data-del"); sched = sched.filter(function(x){ return x.id!==id; }); schSave(sched); schRender(); }
+  });
+
   /* TAB system (hash routing) */
-  var TAB_LABEL = {home:"홈", safety:"안전", academy:"학원", check:"체크", more:"모음"};
+  var TAB_LABEL = {home:"홈", safety:"안전", academy:"학원", schedule:"시간표", check:"체크", more:"모음"};
   var VALID = Object.keys(TAB_LABEL);
   function activate(id){
     if(VALID.indexOf(id)<0) id = "home";
