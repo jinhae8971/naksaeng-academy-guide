@@ -241,6 +241,32 @@
   .ev-del{flex:none; align-self:center; appearance:none; cursor:pointer; background:none; border:none; color:var(--faint); font-size:20px; line-height:1; padding:4px 7px; border-radius:8px; transition:.12s}
   .ev-del:hover{color:var(--red); background:#FBECE9}
 
+  /* enrollment timeline */
+  .tl{position:relative; margin-top:4px}
+  .tl-item{display:flex; gap:13px; position:relative}
+  .tl-rail{flex:none; width:18px; position:relative; display:flex; justify-content:center}
+  .tl-dot{width:13px; height:13px; border-radius:50%; background:#fff; border:3px solid var(--teal); margin-top:16px; position:relative; z-index:1}
+  .tl-item.warn .tl-dot{border-color:var(--amber)}
+  .tl-item.done .tl-dot{background:var(--teal); border-color:var(--teal)}
+  .tl-rail::after{content:""; position:absolute; top:0; bottom:0; width:2px; background:var(--line); left:8px; z-index:0}
+  .tl-item:first-child .tl-rail::after{top:22px}
+  .tl-item:last-child .tl-rail::after{height:22px; bottom:auto}
+  .tl-card{flex:1; min-width:0; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-sm); padding:12px 14px; margin-bottom:11px; box-shadow:var(--shadow-sm)}
+  .tl-item.warn .tl-card{border-color:var(--amber-line); background:linear-gradient(180deg,#fff,#fffaf3)}
+  .tl-when{font-size:11.5px; font-weight:800; color:var(--teal-deep); letter-spacing:.02em; margin-bottom:5px}
+  .tl-item.warn .tl-when{color:var(--amber-ink)}
+  .tl-head{display:flex; align-items:flex-start; gap:9px; cursor:pointer; position:relative}
+  .tl-head input{position:absolute; opacity:0; width:0; height:0}
+  .tl-check{flex:none; width:19px; height:19px; border-radius:6px; border:2px solid var(--line-strong); display:grid; place-items:center; margin-top:1px; color:#fff; transition:.15s}
+  .tl-check svg{opacity:0; transform:scale(.6); transition:.15s}
+  .tl-head input:checked ~ .tl-check{background:var(--teal); border-color:var(--teal)}
+  .tl-head input:checked ~ .tl-check svg{opacity:1; transform:scale(1)}
+  .tl-title{font-weight:800; font-size:15px; letter-spacing:-.02em; line-height:1.35}
+  .tl-head input:checked ~ .tl-title{color:var(--faint); text-decoration:line-through; text-decoration-color:var(--line-strong)}
+  .tl-desc{font-size:13.5px; color:var(--ink-soft); line-height:1.55; margin-top:7px; padding-left:28px}
+  .tl-link{display:inline-block; margin:9px 0 1px 28px; font-size:13px; font-weight:700; color:var(--teal-deep); text-decoration:none; background:var(--teal-soft); border:1px solid var(--teal-line); border-radius:8px; padding:5px 11px}
+  .tl-link:hover{background:#d6ebec}
+
   footer{margin-top:18px; padding:18px 0 6px; color:var(--faint); font-size:12.5px; border-top:1px solid var(--line)}
   footer p{margin:4px 0}
 
@@ -285,7 +311,7 @@
 
     <div class="qrow">
       <button class="qlink" data-go="academy">🏫 학원 보기</button>
-      <button class="qlink" data-go="schedule">🗓️ 시간표</button>
+      <button class="qlink" data-go="schedule">🗓️ 일정</button>
       <button class="qlink" data-go="safety">🛡️ 통학버스 안전</button>
     </div>
 
@@ -406,8 +432,19 @@
   </section>
 
   <section class="panel" data-tab="schedule">
-    <div class="ptitle"><span class="pic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18"/><path d="M8 2.5v4M16 2.5v4"/></svg></span><div><h2>시간표</h2><span class="ps">학원 라이딩 일정 짜기 (기기에 저장)</span></div></div>
+    <div class="ptitle"><span class="pic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18"/><path d="M8 2.5v4M16 2.5v4"/></svg></span><div><h2>일정</h2><span class="ps">입학 준비 일정 · 학원 시간표</span></div></div>
 
+    <div class="seg" data-seg="sched">
+      <button class="segbtn active" data-view="enroll">📅 입학 준비</button>
+      <button class="segbtn" data-view="ride">🗓️ 학원 시간표</button>
+    </div>
+
+    <div data-view-panel="enroll">
+      <div class="note">2027년 3월 입학 기준 주요 일정이에요. 정확한 날짜(예비소집일 등)는 <b>낙생초·주민센터 안내</b>로 확정됩니다. 체크하며 준비 상황을 관리하세요.</div>
+      <div class="tl" id="enrollList"></div>
+    </div>
+
+    <div data-view-panel="ride" hidden>
     <div class="note">요일·시간·이동수단(셔틀/직접 라이딩/도보)을 등록해 한 주 라이딩 동선을 한눈에 보세요. <b>‘+ 일정 추가’</b>를 눌러 시작합니다.</div>
 
     <div class="sch-top">
@@ -458,6 +495,7 @@
     </div>
 
     <div id="schList"></div>
+    </div>
   </section>
 
   <section class="panel" data-tab="check">
@@ -512,7 +550,7 @@
     <button class="tab" data-go="home"><span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="tl">홈</span></button>
     <button class="tab" data-go="safety"><span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="tl">안전</span></button>
     <button class="tab" data-go="academy"><span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-4 9 4-9 4-9-4z"/><path d="M7 11v4c0 1 2.2 2.5 5 2.5s5-1.5 5-2.5v-4"/></svg></span><span class="tl">학원</span></button>
-    <button class="tab" data-go="schedule"><span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18"/><path d="M8 2.5v4M16 2.5v4"/></svg></span><span class="tl">시간표</span></button>
+    <button class="tab" data-go="schedule"><span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18"/><path d="M8 2.5v4M16 2.5v4"/></svg></span><span class="tl">일정</span></button>
     <button class="tab" data-go="check"><span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span class="tl">체크</span></button>
     <button class="tab" data-go="more"><span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><span class="tl">모음</span></button>
   </div>
@@ -623,6 +661,16 @@
         {n:"성남시 통합콜센터", num:"1577-3100", note:"민원·생활"},
         {n:"성남시청소년재단", num:"1577-8088", note:"청소년 시설·프로그램"}
       ]}
+    ],
+    enroll: [
+      { when:"2026년 11월", title:"전입신고·주소 확정", desc:"학교는 주민등록 주소지로 자동 배정돼요. 이사 예정이면 11월 말까지 전입신고를 마쳐야 정확히 배정됩니다." },
+      { when:"2026년 12월", title:"취학통지서 받기", desc:"정부24(PC)에서 온라인 발급하거나, 주민센터가 주소지로 등기우편 발송(보통 12월 중순). 온라인 발급은 세대주만 가능해요.", link:"https://www.gov.kr", linkLabel:"정부24 발급" },
+      { when:"2026년 12월~2027년 1월", title:"예비소집 참석 (필수)", desc:"학교별 지정일에 보호자와 아이가 함께 대면 참석. 취학통지서 제출·안전확인·안내장 수령. 날짜는 취학통지서에 적혀 있어요. 불참 시 학교·지자체가 소재를 확인합니다.", warn:true },
+      { when:"2026년 12월 31일까지", title:"입학유예·조기입학 신청 (해당 시)", desc:"꼭 필요한 경우에만, 거주지 주민센터에 12월 31일까지 신청." },
+      { when:"입학 전", title:"예방접종 완료 확인", desc:"초등 입학 전 필수예방접종 완료 여부를 확인하세요. 예방접종도우미에서 자녀 접종 기록을 조회할 수 있어요.", link:"https://nip.kdca.go.kr", linkLabel:"예방접종도우미" },
+      { when:"2027년 1~2월", title:"늘봄·돌봄·방과후 신청", desc:"돌봄이 필요하면 늘봄학교/돌봄교실·방과후를 신청. 학교별 안내(예비소집·가정통신문)에서 일정을 확인하세요." },
+      { when:"2027년 2월", title:"졸업·입학 준비물", desc:"유치원/어린이집 졸업. 가방·실내화·학용품 준비와 한글·기초 생활습관도 가볍게 챙겨두면 좋아요." },
+      { when:"2027년 3월 초", title:"입학식 🎉", desc:"3월 2일경 입학식과 함께 첫 학기 시작. 통학로와 통학버스 동선을 미리 익혀두면 더 안심돼요." }
     ]
   };
 
@@ -811,6 +859,30 @@
     if(del){ var id=del.getAttribute("data-del"); sched = sched.filter(function(x){ return x.id!==id; }); schSave(sched); schRender(); }
   });
 
+  /* ===== 입학 준비 일정 (타임라인) ===== */
+  function renderEnroll(){
+    var box = $("#enrollList"); if(!box) return;
+    var chk = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>';
+    box.innerHTML = DATA.enroll.map(function(m,i){
+      var key="naksaeng_enroll_"+i, on=ls(true,key)==="1";
+      var link = m.link ? '<a class="tl-link" href="'+esc(m.link)+'" target="_blank" rel="noopener">'+esc(m.linkLabel||"바로가기")+' ↗</a>' : '';
+      return '<div class="tl-item'+(m.warn?' warn':'')+(on?' done':'')+'">'
+        +'<div class="tl-rail"><span class="tl-dot"></span></div>'
+        +'<div class="tl-card"><div class="tl-when">'+esc(m.when)+'</div>'
+        +'<label class="tl-head"><input type="checkbox" data-enroll="'+key+'"'+(on?' checked':'')+'>'
+        +'<span class="tl-check">'+chk+'</span><span class="tl-title">'+esc(m.title)+'</span></label>'
+        +'<div class="tl-desc">'+esc(m.desc)+'</div>'+link+'</div></div>';
+    }).join("");
+  }
+  renderEnroll();
+  document.addEventListener("change", function(e){
+    var el=e.target;
+    if(el && el.matches && el.matches('[data-enroll]')){
+      ls(false, el.getAttribute("data-enroll"), el.checked?"1":"0");
+      var item=el.closest(".tl-item"); if(item){ item.classList.toggle("done", el.checked); }
+    }
+  });
+
   /* ===== 관심(별점) + 모아보기 + 내보내기 ===== */
   function getFav(name){ try{ return localStorage.getItem("naksaeng_fav_"+name)==="1"; }catch(e){ return false; } }
   function setFav(name,on){ try{ if(on){ localStorage.setItem("naksaeng_fav_"+name,"1"); } else { localStorage.removeItem("naksaeng_fav_"+name); } }catch(e){} }
@@ -867,7 +939,7 @@
   renderFav();
 
   /* TAB system (hash routing) */
-  var TAB_LABEL = {home:"홈", safety:"안전", academy:"학원", schedule:"시간표", check:"체크", more:"모음"};
+  var TAB_LABEL = {home:"홈", safety:"안전", academy:"학원", schedule:"일정", check:"체크", more:"모음"};
   var VALID = Object.keys(TAB_LABEL);
   function activate(id){
     if(VALID.indexOf(id)<0) id = "home";
