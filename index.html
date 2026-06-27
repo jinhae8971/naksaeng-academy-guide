@@ -99,8 +99,8 @@
   .acards{display:grid; gap:10px}
   @media(min-width:560px){.acards{grid-template-columns:repeat(2,1fr)}}
   .ac{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-sm); padding:13px 14px; display:flex; flex-direction:column; gap:9px; box-shadow:var(--shadow-sm)}
-  .ac .top{display:flex; align-items:flex-start; gap:8px; justify-content:space-between}
-  .ac .nm{font-weight:800; font-size:15px; letter-spacing:-.02em; line-height:1.32}
+  .ac .top{display:flex; align-items:flex-start; gap:8px}
+  .ac .nm{flex:1; min-width:0; font-weight:800; font-size:15px; letter-spacing:-.02em; line-height:1.32}
   .ac .badge{flex:none; font-size:11px; font-weight:800; color:var(--teal-deep); background:var(--teal-soft); border:1px solid var(--teal-line); border-radius:999px; padding:3px 9px}
   .ac .badges{display:flex; gap:5px; flex-wrap:wrap; justify-content:flex-end; flex:none}
   .ac .badge.yu{color:var(--amber-ink); background:var(--amber-soft); border-color:var(--amber-line)}
@@ -129,6 +129,16 @@
   .memo-actions .memo-cancel{background:#fff; color:var(--ink-soft); border-color:var(--line-strong)}
   .memo-actions .memo-save{background:var(--teal); color:#fff}
   .memo-actions .memo-del{background:#fff; color:var(--red); border-color:var(--red-line)}
+
+  /* favorites (별점) + 모아보기 + 내보내기 */
+  .star{flex:none; appearance:none; cursor:pointer; background:none; border:none; font-size:19px; line-height:1; color:#D7DEE4; padding:0 2px; transition:.12s; -webkit-tap-highlight-color:transparent}
+  .star.on{color:var(--amber)}
+  .star:active{transform:scale(1.15)}
+  .nmcell .star{font-size:17px}
+  .fav-bar{display:flex; align-items:center; gap:10px; margin-bottom:12px}
+  .fav-bar .note{margin:0; flex:1}
+  .fav-export-box{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:13px; margin-bottom:13px; box-shadow:var(--shadow-sm)}
+  #favExportTa{min-height:120px; resize:vertical; width:100%}
 
   .seg{display:inline-flex; background:#EDF2F4; border:1px solid var(--line); border-radius:999px; padding:3px; margin:2px 0 14px; gap:2px}
   .segbtn{appearance:none; border:none; background:none; font-family:inherit; font-size:13.5px; font-weight:700; color:var(--ink-soft); padding:7px 17px; border-radius:999px; cursor:pointer; transition:background .15s, color .15s}
@@ -345,8 +355,9 @@
     <div class="ptitle"><span class="pic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-4 9 4-9 4-9-4z"/><path d="M7 11v4c0 1 2.2 2.5 5 2.5s5-1.5 5-2.5v-4"/></svg></span><div><h2>학원</h2><span class="ps">탭하면 전화·지도로 바로 연결</span></div></div>
 
     <div class="seg" data-seg="academy">
-      <button class="segbtn active" data-view="rec">추천 학원</button>
-      <button class="segbtn" data-view="all">전체 거리순</button>
+      <button class="segbtn active" data-view="rec">추천</button>
+      <button class="segbtn" data-view="all">거리순</button>
+      <button class="segbtn" data-view="fav">⭐ 관심</button>
     </div>
 
     <div data-view-panel="rec">
@@ -367,6 +378,23 @@
         <tbody></tbody>
       </table></div>
       <div class="note" style="margin-top:11px"><b>초1 적합도</b> — 영어·독서 계열은 저학년 적합 / 입시형 수학은 고학년 권장 / 예체능은 ‘추천 학원’ 탭 참고. <b>영유</b>는 영어유치원(초등 반 운영 여부 확인 필요).</div>
+    </div>
+    <div data-view-panel="fav" hidden>
+      <div class="fav-bar">
+        <div class="note">★ 관심 표시했거나 메모를 남긴 학원이 모여요.</div>
+        <button type="button" class="sch-addbtn" id="favExport">↗ 내보내기</button>
+      </div>
+      <div class="fav-export-box" id="favExportBox" hidden>
+        <label class="ff-l">아래 내용을 복사하거나 공유하세요</label>
+        <textarea class="ff-in" id="favExportTa" readonly></textarea>
+        <div class="memo-actions">
+          <button type="button" class="memo-del" id="favClose">닫기</button>
+          <span class="sp"></span>
+          <button type="button" class="memo-cancel" id="favCopy">복사</button>
+          <button type="button" class="memo-save" id="favShare">공유</button>
+        </div>
+      </div>
+      <div id="favList"></div>
     </div>
   </section>
 
@@ -634,9 +662,9 @@
       box.innerHTML = memoViewInner(name);
     } else if(e.target.closest("[data-memo-save]")){
       var t = box.querySelector(".memo-ta");
-      setMemo(name, t ? t.value.trim() : ""); refreshMemo(name);
+      setMemo(name, t ? t.value.trim() : ""); refreshMemo(name); renderFav();
     } else if(e.target.closest("[data-memo-del]")){
-      setMemo(name, ""); refreshMemo(name);
+      setMemo(name, ""); refreshMemo(name); renderFav();
     }
   });
 
@@ -644,7 +672,7 @@
     var call = a.p ? '<a class="btn call" href="'+tel(a.p)+'">📞 '+esc(a.p)+'</a>'
                    : '<span class="btn disabled">전화 정보 없음</span>';
     var badges = '<span class="badge">'+esc(a.g)+'</span>' + (a.yu ? '<span class="badge yu">영유</span>' : '');
-    return '<div class="ac"><div class="top"><div class="nm">'+esc(a.n)+'</div>'
+    return '<div class="ac"><div class="top"><button type="button" class="star'+(getFav(a.n)?' on':'')+'" data-fav="'+esc(a.n)+'" aria-label="관심 표시">★</button><div class="nm">'+esc(a.n)+'</div>'
       +'<div class="badges">'+badges+'</div></div><div class="loc">'+esc(a.loc)+'</div>'
       +'<div class="actions">'+call+'<a class="btn map" href="'+mapUrl(a.n)+'" target="_blank" rel="noopener">🗺️ 지도</a></div>'
       +'<div class="memo-box" data-memo="'+esc(a.n)+'">'+memoViewInner(a.n)+'</div></div>';
@@ -654,7 +682,7 @@
 
   $("#distTable tbody").innerHTML = DATA.dist.map(function(r){
     return '<tr'+(r[6]?' class="best"':'')+'>'
-      +'<td class="nmcell" data-label="학원명">'+esc(r[0])+'</td>'
+      +'<td class="nmcell" data-label="학원명"><button type="button" class="star'+(getFav(r[0])?' on':'')+'" data-fav="'+esc(r[0])+'" aria-label="관심 표시">★</button> '+esc(r[0])+'</td>'
       +'<td data-label="거리">'+esc(r[1])+'</td>'
       +'<td data-label="분야">'+esc(r[2])+(r[7]?' <span class="pill yu">영유</span>':'')+'</td>'
       +'<td data-label="셔틀"><span class="pill '+r[3]+'">'+esc(r[4])+'</span></td>'
@@ -770,6 +798,61 @@
     var del = e.target.closest ? e.target.closest("[data-del]") : null;
     if(del){ var id=del.getAttribute("data-del"); sched = sched.filter(function(x){ return x.id!==id; }); schSave(sched); schRender(); }
   });
+
+  /* ===== 관심(별점) + 모아보기 + 내보내기 ===== */
+  function getFav(name){ try{ return localStorage.getItem("naksaeng_fav_"+name)==="1"; }catch(e){ return false; } }
+  function setFav(name,on){ try{ if(on){ localStorage.setItem("naksaeng_fav_"+name,"1"); } else { localStorage.removeItem("naksaeng_fav_"+name); } }catch(e){} }
+  function syncStars(name){ var on=getFav(name); $$('.star').forEach(function(s){ if(s.getAttribute("data-fav")===name){ s.classList.toggle("on", on); } }); }
+
+  var ALL = [], seenAc = {};
+  function pushAc(a){ if(a && a.n && !seenAc[a.n]){ seenAc[a.n]=1; ALL.push(a); } }
+  DATA.arts.forEach(pushAc); DATA.engs.forEach(pushAc);
+  DATA.dist.forEach(function(r){ pushAc({ n:r[0], g:r[2], loc:r[2]+" · 낙생초에서 "+r[1], p:r[5], yu:r[7]||false }); });
+
+  function renderFav(){
+    var c = $("#favList"); if(!c) return;
+    var items = ALL.filter(function(a){ return getFav(a.n) || getMemo(a.n); });
+    var ex = $("#favExport");
+    if(!items.length){
+      c.innerHTML = '<div class="soon"><b>관심·메모한 학원이 없어요</b><br>학원 카드의 ★를 누르거나 메모를 남기면 여기에 모여요. ‘거리순’ 표에서도 ★로 담을 수 있어요.</div>';
+      if(ex) ex.style.display = "none";
+      return;
+    }
+    if(ex) ex.style.display = "";
+    items.sort(function(a,b){ var fa=getFav(a.n)?0:1, fb=getFav(b.n)?0:1; return fa-fb || a.n.localeCompare(b.n); });
+    c.innerHTML = items.map(acCard).join("");
+  }
+
+  function favExportText(){
+    var items = ALL.filter(function(a){ return getFav(a.n) || getMemo(a.n); });
+    var out = ["[낙생초 학원 메모]", ""];
+    items.forEach(function(a){
+      out.push("● "+(getFav(a.n)?"★ ":"")+a.n+" — "+a.g+(a.p?" / "+a.p:""));
+      var m=getMemo(a.n); if(m){ out.push(m); }
+      out.push("");
+    });
+    return out.join("\n").trim();
+  }
+
+  document.addEventListener("click", function(e){
+    var st = e.target.closest ? e.target.closest(".star") : null;
+    if(st){ var name=st.getAttribute("data-fav"); setFav(name, !getFav(name)); syncStars(name); renderFav(); }
+  });
+
+  (function(){
+    var ex=$("#favExport"), box=$("#favExportBox"), ta=$("#favExportTa");
+    if(ex && ta && box){ ex.addEventListener("click", function(){ ta.value = favExportText(); box.hidden=false; box.scrollIntoView({behavior:"smooth", block:"nearest"}); }); }
+    var close=$("#favClose"); if(close && box){ close.addEventListener("click", function(){ box.hidden=true; }); }
+    var copy=$("#favCopy"); if(copy && ta){ copy.addEventListener("click", function(){
+      ta.focus(); ta.select();
+      var done=function(){ copy.textContent="복사됨!"; setTimeout(function(){ copy.textContent="복사"; },1500); };
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(ta.value).then(done, function(){ try{ document.execCommand("copy"); done(); }catch(_){} }); }
+      else { try{ document.execCommand("copy"); done(); }catch(_){} }
+    }); }
+    var share=$("#favShare"); if(share){ if(!navigator.share){ share.style.display="none"; } else if(ta){ share.addEventListener("click", function(){ navigator.share({title:"낙생초 학원 메모", text:ta.value}).catch(function(){}); }); } }
+  })();
+
+  renderFav();
 
   /* TAB system (hash routing) */
   var TAB_LABEL = {home:"홈", safety:"안전", academy:"학원", schedule:"시간표", check:"체크", more:"모음"};
