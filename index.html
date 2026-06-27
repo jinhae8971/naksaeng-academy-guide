@@ -113,6 +113,23 @@
   .btn.map{background:#fff; color:var(--teal-deep); border-color:var(--teal-line)} .btn.map:hover{background:var(--teal-soft)}
   .btn.disabled{background:#F0F3F5; color:var(--faint); pointer-events:none}
 
+  /* per-academy memo */
+  .memo-box{margin-top:11px; padding-top:11px; border-top:1px dashed var(--line)}
+  .memo-add{appearance:none; cursor:pointer; font-family:inherit; width:100%; text-align:left; font-size:13px; font-weight:700; color:var(--teal-deep); background:var(--surface-2); border:1px dashed var(--teal-line); border-radius:9px; padding:9px 11px; transition:.15s}
+  .memo-add:hover{background:var(--teal-soft)}
+  .memo-view{display:flex; align-items:flex-start; gap:8px; justify-content:space-between}
+  .memo-text{font-size:13.5px; color:var(--amber-ink); line-height:1.55; white-space:pre-wrap; word-break:break-word; background:var(--amber-soft); border:1px solid var(--amber-line); border-radius:9px; padding:9px 11px; flex:1; min-width:0}
+  .memo-edit{flex:none; appearance:none; cursor:pointer; font-family:inherit; font-size:12.5px; font-weight:800; color:var(--teal-deep); background:none; border:none; padding:6px 3px}
+  .memo-ta{width:100%; font-family:inherit; font-size:13.5px; line-height:1.55; color:var(--ink); background:#fff; border:1px solid var(--teal); border-radius:9px; padding:10px 11px; min-height:80px; resize:vertical; -webkit-appearance:none}
+  .memo-ta:focus{outline:none}
+  .memo-actions{display:flex; align-items:center; gap:8px; margin-top:8px}
+  .memo-actions .sp{flex:1}
+  .memo-actions button{appearance:none; cursor:pointer; font-family:inherit; font-weight:800; font-size:13px; border-radius:8px; padding:7px 14px; border:1px solid transparent; transition:transform .12s}
+  .memo-actions button:active{transform:translateY(1px)}
+  .memo-actions .memo-cancel{background:#fff; color:var(--ink-soft); border-color:var(--line-strong)}
+  .memo-actions .memo-save{background:var(--teal); color:#fff}
+  .memo-actions .memo-del{background:#fff; color:var(--red); border-color:var(--red-line)}
+
   .seg{display:inline-flex; background:#EDF2F4; border:1px solid var(--line); border-radius:999px; padding:3px; margin:2px 0 14px; gap:2px}
   .segbtn{appearance:none; border:none; background:none; font-family:inherit; font-size:13.5px; font-weight:700; color:var(--ink-soft); padding:7px 17px; border-radius:999px; cursor:pointer; transition:background .15s, color .15s}
   .segbtn.active{background:#fff; color:var(--teal-deep); box-shadow:var(--shadow-sm)}
@@ -581,13 +598,56 @@
   var mapUrl = function(n){ return "https://map.naver.com/p/search/"+encodeURIComponent(n); };
   var ls = function(get,k,v){ try{ return get? localStorage.getItem(k): localStorage.setItem(k,v); }catch(e){ return null; } };
 
+  /* ===== per-academy memo (상담·검색 기록) ===== */
+  function getMemo(name){ try{ return localStorage.getItem("naksaeng_memo_"+name) || ""; }catch(e){ return ""; } }
+  function setMemo(name,txt){ try{ if(txt){ localStorage.setItem("naksaeng_memo_"+name, txt); } else { localStorage.removeItem("naksaeng_memo_"+name); } }catch(e){} }
+  function memoViewInner(name){
+    var m = getMemo(name);
+    if(m){
+      return '<div class="memo-view"><div class="memo-text">'+esc(m)+'</div>'
+        +'<button type="button" class="memo-edit" data-memo-edit>수정</button></div>';
+    }
+    return '<button type="button" class="memo-add" data-memo-edit>📝 상담·검색 메모 추가</button>';
+  }
+  function memoEditInner(name){
+    var m = getMemo(name);
+    return '<textarea class="memo-ta" placeholder="상담 내용·검색한 정보·비교 메모를 적어두세요">'+esc(m)+'</textarea>'
+      +'<div class="memo-actions">'
+      + (m? '<button type="button" class="memo-del" data-memo-del>삭제</button>' : '')
+      + '<span class="sp"></span>'
+      + '<button type="button" class="memo-cancel" data-memo-cancel>취소</button>'
+      + '<button type="button" class="memo-save" data-memo-save>저장</button>'
+      + '</div>';
+  }
+  function refreshMemo(name){
+    $$('.memo-box').forEach(function(b){ if(b.getAttribute("data-memo")===name){ b.innerHTML = memoViewInner(name); } });
+  }
+  document.addEventListener("click", function(e){
+    var box = e.target.closest ? e.target.closest(".memo-box") : null;
+    if(!box) return;
+    var name = box.getAttribute("data-memo");
+    if(e.target.closest("[data-memo-edit]")){
+      box.innerHTML = memoEditInner(name);
+      var ta = box.querySelector(".memo-ta");
+      if(ta){ ta.focus(); try{ ta.setSelectionRange(ta.value.length, ta.value.length); }catch(_){} }
+    } else if(e.target.closest("[data-memo-cancel]")){
+      box.innerHTML = memoViewInner(name);
+    } else if(e.target.closest("[data-memo-save]")){
+      var t = box.querySelector(".memo-ta");
+      setMemo(name, t ? t.value.trim() : ""); refreshMemo(name);
+    } else if(e.target.closest("[data-memo-del]")){
+      setMemo(name, ""); refreshMemo(name);
+    }
+  });
+
   function acCard(a){
     var call = a.p ? '<a class="btn call" href="'+tel(a.p)+'">📞 '+esc(a.p)+'</a>'
                    : '<span class="btn disabled">전화 정보 없음</span>';
     var badges = '<span class="badge">'+esc(a.g)+'</span>' + (a.yu ? '<span class="badge yu">영유</span>' : '');
     return '<div class="ac"><div class="top"><div class="nm">'+esc(a.n)+'</div>'
       +'<div class="badges">'+badges+'</div></div><div class="loc">'+esc(a.loc)+'</div>'
-      +'<div class="actions">'+call+'<a class="btn map" href="'+mapUrl(a.n)+'" target="_blank" rel="noopener">🗺️ 지도</a></div></div>';
+      +'<div class="actions">'+call+'<a class="btn map" href="'+mapUrl(a.n)+'" target="_blank" rel="noopener">🗺️ 지도</a></div>'
+      +'<div class="memo-box" data-memo="'+esc(a.n)+'">'+memoViewInner(a.n)+'</div></div>';
   }
   $("#arts").innerHTML = DATA.arts.map(acCard).join("");
   $("#engs").innerHTML = DATA.engs.map(acCard).join("");
