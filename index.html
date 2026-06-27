@@ -113,6 +113,13 @@
   .btn.map{background:#fff; color:var(--teal-deep); border-color:var(--teal-line)} .btn.map:hover{background:var(--teal-soft)}
   .btn.disabled{background:#F0F3F5; color:var(--faint); pointer-events:none}
 
+  /* homepage / blog link */
+  .weblink{display:flex; align-items:center; justify-content:center; gap:6px; margin-top:9px; text-decoration:none; font-weight:700; font-size:13px; color:var(--teal-deep); background:var(--surface-2); border:1px solid var(--teal-line); border-radius:9px; padding:9px 11px; transition:background .15s}
+  .weblink:hover{background:var(--teal-soft)}
+  .weblink:active{transform:translateY(1px)}
+  .weblink.alt{color:var(--ink-soft); border-color:var(--line-strong)}
+  .weblink.alt:hover{background:#EEF2F4}
+
   /* per-academy memo */
   .memo-box{margin-top:11px; padding-top:11px; border-top:1px dashed var(--line)}
   .memo-add{appearance:none; cursor:pointer; font-family:inherit; width:100%; text-align:left; font-size:13px; font-weight:700; color:var(--teal-deep); background:var(--surface-2); border:1px dashed var(--teal-line); border-radius:9px; padding:9px 11px; transition:.15s}
@@ -530,7 +537,7 @@
       {g:"피아노", n:"판교클랑피아노 교습소", loc:"원마을 현대힐스테이트", p:""}
     ],
     engs: [
-      {g:"영어", n:"틸아임일레븐 판교", loc:"영어몰입 · 판교(낙생초 인근)", p:"031-711-2177", yu:true},
+      {g:"영어", n:"틸아임일레븐 판교", loc:"영어몰입 · 판교(낙생초 인근)", p:"031-711-2177", yu:true, web:"https://tilliameleven.com"},
       {g:"영어독서", n:"리드인 서판교점", loc:"영어독서·논술 · 운중동", p:"010-4826-8296"},
       {g:"영어", n:"정예포람학원", loc:"영어·논술 · 운중동", p:"031-707-0477"},
       {g:"영어", n:"Honors Academy", loc:"영어 · 운중동", p:"070-7755-4620"}
@@ -541,12 +548,12 @@
       ["판교엘리트어학원","1.2km","영어","warn","확인 필요","031-8017-4081",false],
       ["정예포람학원","1.5km","영어·논술","near","근거리(도보권)","031-707-0477",false],
       ["페이지영어학원(삼평)","1.8km","영어","warn","확인 필요","031-8016-0560",false],
-      ["디랩코딩학원 판교캠퍼스","1.9km","코딩","near","근거리(도보권)","031-526-9301",false],
+      ["디랩코딩학원 판교캠퍼스","1.9km","코딩","near","근거리(도보권)","031-526-9301",false,false,"https://www.daddyslab.com/dlab_pangyo"],
       ["유신학원","1.9km","종합","near","근거리(도보권)","031-8017-7779",false],
       ["리드인 서판교점","2.0km","영어독서","near","근거리(도보권)","010-4826-8296",false],
-      ["청담러닝 분당","2.2km","영어","warn","확인 필요","031-707-9407",false],
+      ["청담러닝 분당","2.2km","영어","warn","확인 필요","031-707-9407",false,false,"https://www.creverse.com"],
       ["올인원수학전문학원","2.2km","수학","warn","확인 필요","031-716-1393",false],
-      ["수학의아침 수내 초등관","2.2km","수학","warn","운영(노선 확인)","031-698-3400",false],
+      ["수학의아침 수내 초등관","2.2km","수학","warn","운영(노선 확인)","031-698-3400",false,false,"https://e.sooaa.net"],
       ["아이비어학원","2.3km","영어","warn","확인 필요","031-717-0596",false],
       ["정상어학원 분당이매","2.7km","영어","warn","확인 필요","031-702-7999",false],
       ["수이학원","2.8km","수학","ok","노선 확인됨","031-713-8011",true]
@@ -668,6 +675,10 @@
     }
   });
 
+  function webLink(a){
+    if(a.web){ return '<a class="weblink" href="'+esc(a.web)+'" target="_blank" rel="noopener">🌐 홈페이지 ↗</a>'; }
+    return '<a class="weblink alt" href="https://search.naver.com/search.naver?query='+encodeURIComponent(a.n+" 학원 블로그")+'" target="_blank" rel="noopener">🔍 블로그·정보 ↗</a>';
+  }
   function acCard(a){
     var call = a.p ? '<a class="btn call" href="'+tel(a.p)+'">📞 '+esc(a.p)+'</a>'
                    : '<span class="btn disabled">전화 정보 없음</span>';
@@ -675,6 +686,7 @@
     return '<div class="ac"><div class="top"><button type="button" class="star'+(getFav(a.n)?' on':'')+'" data-fav="'+esc(a.n)+'" aria-label="관심 표시">★</button><div class="nm">'+esc(a.n)+'</div>'
       +'<div class="badges">'+badges+'</div></div><div class="loc">'+esc(a.loc)+'</div>'
       +'<div class="actions">'+call+'<a class="btn map" href="'+mapUrl(a.n)+'" target="_blank" rel="noopener">🗺️ 지도</a></div>'
+      + webLink(a)
       +'<div class="memo-box" data-memo="'+esc(a.n)+'">'+memoViewInner(a.n)+'</div></div>';
   }
   $("#arts").innerHTML = DATA.arts.map(acCard).join("");
@@ -807,7 +819,7 @@
   var ALL = [], seenAc = {};
   function pushAc(a){ if(a && a.n && !seenAc[a.n]){ seenAc[a.n]=1; ALL.push(a); } }
   DATA.arts.forEach(pushAc); DATA.engs.forEach(pushAc);
-  DATA.dist.forEach(function(r){ pushAc({ n:r[0], g:r[2], loc:r[2]+" · 낙생초에서 "+r[1], p:r[5], yu:r[7]||false }); });
+  DATA.dist.forEach(function(r){ pushAc({ n:r[0], g:r[2], loc:r[2]+" · 낙생초에서 "+r[1], p:r[5], yu:r[7]||false, web:r[8]||"" }); });
 
   function renderFav(){
     var c = $("#favList"); if(!c) return;
