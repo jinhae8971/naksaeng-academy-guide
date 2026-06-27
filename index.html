@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<title>낙생초 입학 안심 가이드 · 학원·통학버스</title>
+<meta name="description" content="판교 낙생초 입학 예정 자녀(초1)를 위한 학원·통학버스 안심 가이드. 통학버스 안전, 저학년 적합 학원, 부모 체크리스트.">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --bg:#F5F8FA; --surface:#FFFFFF; --surface-2:#FBFDFE;
+    --ink:#1C2A38; --ink-soft:#566276; --faint:#8B98A9;
+    --teal:#1C6F78; --teal-deep:#13525A; --teal-soft:#E4F0F1; --teal-line:#CDE4E5;
+    --amber:#CF8338; --amber-soft:#FBEEDF; --amber-ink:#8F5417; --amber-line:#F0D8BC;
+    --green:#4C8761; --green-soft:#E5F0E8; --green-ink:#346149;
+    --line:#E3EAEF; --line-strong:#D3DDE4;
+    --shadow:0 1px 2px rgba(16,42,60,.05), 0 10px 30px rgba(16,42,60,.06);
+    --shadow-sm:0 1px 2px rgba(16,42,60,.06);
+    --r:16px; --r-sm:11px; --maxw:760px;
+    --sans:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.72; -webkit-font-smoothing:antialiased; letter-spacing:-.01em;
+  }
+  a{color:inherit}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 18px}
+
+  /* top bar */
+  .topbar{
+    position:sticky; top:0; z-index:50; background:rgba(245,248,250,.86);
+    backdrop-filter:saturate(160%) blur(10px); border-bottom:1px solid var(--line);
+  }
+  .topbar .wrap{display:flex; align-items:center; gap:9px; height:52px}
+  .topbar .dot{width:9px; height:9px; border-radius:50%; background:var(--teal); flex:none}
+  .topbar b{font-weight:700; font-size:15px; letter-spacing:-.02em}
+  .topbar .sub{color:var(--faint); font-size:12.5px; margin-left:auto; font-weight:500}
+
+  /* hero */
+  .hero{padding:30px 0 8px}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:700;
+    letter-spacing:.04em; color:var(--teal-deep); background:var(--teal-soft);
+    border:1px solid var(--teal-line); padding:5px 11px; border-radius:999px;
+  }
+  h1.title{
+    font-size:30px; line-height:1.28; font-weight:800; letter-spacing:-.035em;
+    margin:15px 0 10px;
+  }
+  .lead{color:var(--ink-soft); font-size:15.5px; margin:0 0 4px; font-weight:500}
+  .metaline{color:var(--faint); font-size:13px; margin-top:9px; display:flex; gap:10px; flex-wrap:wrap}
+  .metaline span{display:inline-flex; align-items:center; gap:5px}
+
+  /* safety promise — the signature */
+  .promise{
+    margin:22px 0 6px; background:linear-gradient(180deg,#FFFFFF, #FCFAF6);
+    border:1px solid var(--amber-line); border-radius:var(--r); padding:18px 16px 16px;
+    box-shadow:var(--shadow);
+  }
+  .promise .ptag{
+    display:inline-flex; align-items:center; gap:7px; font-weight:800; font-size:13px;
+    color:var(--amber-ink); letter-spacing:-.01em; margin-bottom:13px;
+  }
+  .promise .chips{display:grid; gap:9px}
+  @media(min-width:560px){.promise .chips{grid-template-columns:repeat(3,1fr)}}
+  .chip{
+    display:flex; align-items:center; gap:11px; background:var(--amber-soft);
+    border:1px solid var(--amber-line); border-radius:var(--r-sm); padding:12px 13px;
+  }
+  .chip .ic{flex:none; width:34px; height:34px; border-radius:9px; background:#fff;
+    display:grid; place-items:center; color:var(--amber); border:1px solid var(--amber-line)}
+  .chip .n{display:block; font-weight:800; color:var(--amber); font-size:11.5px; margin-bottom:2px; letter-spacing:.06em}
+  .chip .t{font-weight:700; font-size:14.5px; line-height:1.3; letter-spacing:-.02em}
+
+  /* TOC */
+  nav.toc{margin:20px 0 6px; display:flex; gap:8px; overflow-x:auto; padding-bottom:4px;
+    scrollbar-width:none; -webkit-overflow-scrolling:touch}
+  nav.toc::-webkit-scrollbar{display:none}
+  nav.toc a{
+    flex:none; font-size:13px; font-weight:600; color:var(--ink-soft); text-decoration:none;
+    background:var(--surface); border:1px solid var(--line); border-radius:999px; padding:7px 13px;
+    white-space:nowrap; transition:border-color .15s, color .15s;
+  }
+  nav.toc a:hover{border-color:var(--teal-line); color:var(--teal-deep)}
+
+  /* sections */
+  section{padding:26px 0; scroll-margin-top:64px}
+  .sechead{display:flex; align-items:baseline; gap:11px; margin-bottom:14px}
+  .sechead .num{
+    font-variant-numeric:tabular-nums; font-weight:800; font-size:13px; color:#fff;
+    background:var(--teal); width:25px; height:25px; border-radius:7px; display:grid;
+    place-items:center; flex:none; letter-spacing:0; transform:translateY(3px);
+  }
+  .sechead h2{font-size:20.5px; font-weight:800; letter-spacing:-.03em; margin:0; line-height:1.3}
+  .sechead .h2sub{display:block; font-size:13px; font-weight:600; color:var(--faint); margin-top:3px; letter-spacing:-.01em}
+
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+    padding:18px 17px; box-shadow:var(--shadow-sm); margin-bottom:13px}
+  .card.flat{box-shadow:none}
+
+  .kv{margin:0 0 9px}
+  .kv:last-child{margin-bottom:0}
+  .kv b{color:var(--teal-deep); font-weight:800; margin-right:7px}
+  .muted{color:var(--ink-soft)}
+
+  ul.clean{list-style:none; margin:0; padding:0}
+  ul.clean li{position:relative; padding:7px 0 7px 24px; border-bottom:1px dashed var(--line)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:""; position:absolute; left:4px; top:15.5px; width:7px; height:7px;
+    border-radius:50%; background:var(--teal); opacity:.55}
+  ul.clean li b{font-weight:800}
+
+  ol.steps{list-style:none; counter-reset:s; margin:0; padding:0}
+  ol.steps li{counter-increment:s; position:relative; padding:9px 0 9px 38px; border-bottom:1px dashed var(--line)}
+  ol.steps li:last-child{border-bottom:none}
+  ol.steps li::before{content:counter(s); position:absolute; left:0; top:10px; width:25px; height:25px;
+    background:var(--teal-soft); color:var(--teal-deep); border:1px solid var(--teal-line);
+    border-radius:50%; display:grid; place-items:center; font-weight:800; font-size:12.5px;
+    font-variant-numeric:tabular-nums}
+
+  /* callout boxes */
+  .note{background:var(--surface-2); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:10px; padding:13px 15px; font-size:14.5px; color:var(--ink-soft)}
+  .note.warm{border-left-color:var(--amber); background:var(--amber-soft); color:var(--amber-ink); border-color:var(--amber-line)}
+  .note b{color:inherit; font-weight:800}
+
+  .subhead{font-weight:800; font-size:15.5px; margin:18px 0 9px; letter-spacing:-.02em;
+    display:flex; align-items:center; gap:8px; color:var(--teal-deep)}
+  .subhead .bar{width:4px; height:15px; border-radius:2px; background:var(--teal)}
+  .subhead:first-child{margin-top:2px}
+
+  /* academy cards */
+  .acards{display:grid; gap:10px}
+  @media(min-width:560px){.acards{grid-template-columns:repeat(2,1fr)}}
+  .ac{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-sm);
+    padding:13px 14px; display:flex; flex-direction:column; gap:9px; box-shadow:var(--shadow-sm)}
+  .ac .top{display:flex; align-items:flex-start; gap:8px; justify-content:space-between}
+  .ac .nm{font-weight:800; font-size:15px; letter-spacing:-.02em; line-height:1.32}
+  .ac .badge{flex:none; font-size:11px; font-weight:800; color:var(--teal-deep);
+    background:var(--teal-soft); border:1px solid var(--teal-line); border-radius:999px; padding:3px 9px}
+  .ac .loc{font-size:13px; color:var(--faint); margin-top:-3px}
+  .ac .actions{display:flex; gap:8px; margin-top:auto}
+  .btn{flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px;
+    text-decoration:none; font-weight:700; font-size:13.5px; border-radius:9px; padding:9px 10px;
+    border:1px solid transparent; transition:transform .12s, background .15s}
+  .btn:active{transform:translateY(1px)}
+  .btn.call{background:var(--teal); color:#fff}
+  .btn.call:hover{background:var(--teal-deep)}
+  .btn.map{background:#fff; color:var(--teal-deep); border-color:var(--teal-line)}
+  .btn.map:hover{background:var(--teal-soft)}
+  .btn.disabled{background:#F0F3F5; color:var(--faint); pointer-events:none}
+
+  /* table */
+  .tablewrap{border:1px solid var(--line); border-radius:var(--r); overflow:hidden; box-shadow:var(--shadow-sm)}
+  table.acad{width:100%; border-collapse:collapse; font-size:14px}
+  table.acad th{background:var(--teal); color:#fff; font-weight:700; text-align:left;
+    padding:10px 12px; font-size:13px; white-space:nowrap}
+  table.acad td{padding:10px 12px; border-top:1px solid var(--line); vertical-align:middle}
+  table.acad td a{color:var(--teal-deep); font-weight:700; text-decoration:none}
+  table.acad tr.best td{background:var(--green-soft)}
+  .pill{display:inline-block; font-size:11.5px; font-weight:700; padding:2px 8px; border-radius:999px; white-space:nowrap}
+  .pill.ok{background:var(--green-soft); color:var(--green-ink); border:1px solid #CFE3D6}
+  .pill.warn{background:#FBF1DE; color:#8A6314; border:1px solid #EFDFB9}
+  .pill.near{background:var(--teal-soft); color:var(--teal-deep); border:1px solid var(--teal-line)}
+  @media(max-width:600px){
+    table.acad thead{display:none}
+    table.acad tr{display:block; border-top:1px solid var(--line); padding:9px 4px}
+    table.acad tr:first-child{border-top:none}
+    table.acad tr.best{background:var(--green-soft)}
+    table.acad td{display:flex; justify-content:space-between; gap:14px; border:none; padding:4px 12px; text-align:right}
+    table.acad td::before{content:attr(data-label); color:var(--faint); font-weight:700; text-align:left}
+    table.acad td.nmcell{font-weight:800; font-size:15px; padding-top:6px}
+    table.acad td.nmcell::before{content:""}
+  }
+
+  /* checklist */
+  .checks{display:grid; gap:7px; margin-top:2px}
+  .check{display:flex; align-items:flex-start; gap:11px; background:var(--surface);
+    border:1px solid var(--line); border-radius:11px; padding:11px 13px; cursor:pointer;
+    box-shadow:var(--shadow-sm); transition:border-color .15s}
+  .check:hover{border-color:var(--teal-line)}
+  .check input{position:absolute; opacity:0; width:0; height:0}
+  .check .box{flex:none; width:21px; height:21px; border-radius:6px; border:2px solid var(--line-strong);
+    display:grid; place-items:center; margin-top:1px; transition:.15s; color:#fff}
+  .check .box svg{opacity:0; transform:scale(.6); transition:.15s}
+  .check .lbl{font-size:14.5px; line-height:1.5; font-weight:500}
+  .check input:checked ~ .box{background:var(--teal); border-color:var(--teal)}
+  .check input:checked ~ .box svg{opacity:1; transform:scale(1)}
+  .check input:checked ~ .lbl{color:var(--faint); text-decoration:line-through; text-decoration-color:var(--line-strong)}
+
+  /* footer */
+  footer{border-top:1px solid var(--line); margin-top:18px; padding:24px 0 50px; color:var(--faint); font-size:12.5px}
+  footer .ft-links{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:12px}
+  footer a.flink{color:var(--teal-deep); font-weight:700; text-decoration:none; font-size:13.5px}
+  footer p{margin:5px 0}
+
+  /* motion */
+  @media(prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="dot"></span><b>낙생초 입학 안심 가이드</b>
+    <span class="sub">초1 · 2027 입학</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">학원·통학버스 안심 가이드</span>
+    <h1 class="title">처음 학원, 부모가 안심하고<br>보낼 수 있도록</h1>
+    <p class="lead">판교 낙생초 입학 예정 자녀(초1 여아)를 위한 통학버스 안전·저학년 적합 학원 정리</p>
+    <div class="metaline">
+      <span>📍 기준: 낙생초(서판교·원마을 인근)</span>
+      <span>🗓️ 2026.06.27</span>
+    </div>
+
+    <div class="promise">
+      <div class="ptag">🚌 통학버스, 딱 3가지만 기억하세요</div>
+      <div class="chips">
+        <div class="chip">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
+          <span><span class="n">01</span><span class="t">동승 선생님 탑승</span></span>
+        </div>
+        <div class="chip">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></span>
+          <span><span class="n">02</span><span class="t">집(단지) 앞 하차</span></span>
+        </div>
+        <div class="chip">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span>
+          <span><span class="n">03</span><span class="t">실시간 승하차 알림</span></span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="toc">
+      <a href="#s2">핵심 요약</a>
+      <a href="#s3">저학년 시작 원칙</a>
+      <a href="#s4">통학버스 안전</a>
+      <a href="#s5">적합 학원</a>
+      <a href="#s6">거리순 목록</a>
+      <a href="#s7">안심 체크리스트</a>
+      <a href="#s8">다음 단계</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 1 -->
+  <section id="s1" class="reveal">
+    <div class="sechead"><span class="num">1</span><h2>개요</h2></div>
+    <div class="card flat">
+      <p class="kv"><b>대상</b><span class="muted">2027년 3월 초등학교 1학년 입학 예정(여아). 처음 학원을 시작하는 저학년 가정.</span></p>
+      <p class="kv"><b>목적</b><span class="muted">통학버스 안전·저학년 적합성·확인 방법을 종합 정리해, 안심하고 학원을 보낼 수 있도록 돕는다.</span></p>
+      <p class="kv"><b>관점</b><span class="muted">‘어느 학원’보다 ‘얼마나 안심하고 보낼 수 있는지’에 무게를 둔다. 입시형 수학학원은 셔틀이 우수해도 저학년 시작용으로는 후순위.</span></p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="s2" class="reveal">
+    <div class="sechead"><span class="num">2</span><h2>핵심 요약</h2></div>
+    <div class="card">
+      <ul class="clean">
+        <li>1학년은 학습량보다 <b>적응·흥미·정서</b>가 먼저. 처음엔 예체능 1~2개 + 놀이·독서 영어로 가볍게 시작.</li>
+        <li>안심의 핵심은 학원 이름보다 <b>통학버스 안전</b> — 동승 선생님·집 앞 하차·실시간 알림 3가지.</li>
+        <li>등록 전 <b>학교안전24 통학버스 정보공개</b>에서 차량 등록·보험·안전교육 수료를 직접 조회.</li>
+        <li><b>예체능</b>(태권도·미술·피아노·발레)은 부담이 적고 셔틀이 많아 첫 학원으로 적합.</li>
+        <li>셔틀이 잘 갖춰진 <b>입시형 수학학원은 고학년용</b>으로 기억해두고 지금은 후순위.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="s3" class="reveal">
+    <div class="sechead"><span class="num">3</span><h2>초1, 이렇게 시작하면 좋아요</h2></div>
+    <div class="card">
+      <ul class="clean">
+        <li><b>과목보다 적응</b> — 첫 학기는 학교 적응이 우선. 학원은 1~2개로 시작하고, 아이가 즐거워하는지를 최우선 기준으로.</li>
+        <li><b>추천 출발점</b> — 예체능 + 놀이·독서 기반 영어. 한글이 아직이면 한글·독서부터.</li>
+        <li><b>피하면 좋은 것</b> — 진도·시험 위주 입시형 수학/영어는 저학년엔 이르다. 학습 거부감으로 이어질 수 있음.</li>
+        <li><b>하교 시간</b> — 1학년은 보통 12:30~13:20 하교(요일별 상이). 돌봄·방과후와 학원 시작 시간이 겹치지 않게.</li>
+        <li><b>동선</b> — 학교 → (돌봄/방과후) → 학원 셔틀 → 집. 셔틀이 학교 또는 집 앞에서 연결되는지가 핵심.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="s4" class="reveal">
+    <div class="sechead"><span class="num">4</span><h2>통학버스 안전, 이것만은 확인</h2></div>
+
+    <div class="subhead"><span class="bar"></span>법으로 정해진 안전 요건</div>
+    <div class="card flat">
+      <p class="muted" style="margin:0 0 9px">도로교통법상 만 13세 미만 어린이 통학용 차량은 다음을 갖춰야 합니다.</p>
+      <ul class="clean">
+        <li>11인승 이상 황색(노란색) 도색, 어린이보호 표지</li>
+        <li>체형에 맞는 좌석 안전띠, 승하차 점멸등, 좌측 정지표시판(STOP)</li>
+        <li>하차 확인 장치(맨 뒷좌석 비상벨) — 아이가 차 안에 남지 않도록</li>
+        <li>관할 경찰서 신고필증 비치, 보험 가입 의무</li>
+        <li>운영자·운전자·동승자 안전교육 의무 이수</li>
+        <li><b>만 13세 미만 탑승 시 보호자(동승자) 동승 의무</b> — 저학년에 특히 중요</li>
+      </ul>
+    </div>
+
+    <div class="subhead"><span class="bar"></span>등록·보험·교육 직접 확인</div>
+    <div class="note"><b>학교안전24 통학버스 정보공개</b>에서 학원명으로 검색하면 등록 차량·안전교육 수료·보험 가입 여부를 확인할 수 있어요. 등록 전 1분이면 조회 가능. <a href="https://www.schoolsafe24.or.kr" target="_blank" rel="noopener" style="color:var(--teal-deep);font-weight:700;white-space:nowrap">바로가기 ↗</a></div>
+
+    <div class="subhead"><span class="bar"></span>실시간으로 안심 (승하차 알림 앱)</div>
+    <div class="card flat">
+      <ul class="clean">
+        <li><b>라이드(RIDE)</b> — 실시간 차량 위치, 원생별 승하차 알림</li>
+        <li><b>컴온버스</b> — 실시간 위치·정류장 출발 알림</li>
+        <li><b>셔틀아이디</b> — 얼굴인식으로 탑승 확인(부정승차·미탑승 방지)</li>
+      </ul>
+    </div>
+
+    <div class="subhead"><span class="bar"></span>첫 탑승 전 체크</div>
+    <div class="card flat">
+      <ul class="clean">
+        <li>동승 선생님이 함께 타는지(저학년은 사실상 필수)</li>
+        <li>집(단지 정문) 앞 하차인지, 하차 시 보호자 인계 방식</li>
+        <li>좌석·안전띠 상태, 차량 청결·냉난방</li>
+        <li>토요일·방학 운행 여부(예: 수이학원은 토요일 셔틀 미운행)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="s5" class="reveal">
+    <div class="sechead"><span class="num">5</span><h2>초1 적합 학원 <span class="h2sub">탭하면 바로 전화·지도로 연결돼요</span></h2></div>
+
+    <div class="subhead"><span class="bar"></span>예체능 — 부담 적고 셔틀 많은 첫 학원 (추천 시작점)</div>
+    <div class="note" style="margin-bottom:11px">태권도는 도장 차량 셔틀이 거의 표준, 미술·피아노·발레도 운영하는 곳이 많아요. 셔틀 여부는 상담 시 확인하세요.</div>
+    <div class="acards" id="arts"></div>
+
+    <div class="subhead"><span class="bar"></span>영어 — 놀이·독서 기반 (저학년 적합)</div>
+    <div class="acards" id="engs"></div>
+
+    <div class="subhead"><span class="bar"></span>수학·종합 — 지금은 후순위</div>
+    <div class="note warm">입시형 수학(수이학원 등)은 <b>셔틀은 우수하나 저학년 시작용으로는 권장하지 않아요.</b> 사고력·놀이수학으로 가볍게 접하려면 종합학원(유신학원 등) 초등 저학년반 상담 정도가 적당합니다.</div>
+  </section>
+
+  <!-- 6 -->
+  <section id="s6" class="reveal">
+    <div class="sechead"><span class="num">6</span><h2>분당 학원 거리순 목록 <span class="h2sub">학과 중심 · 거리는 직선거리 추정치</span></h2></div>
+    <div class="tablewrap">
+      <table class="acad" id="distTable">
+        <thead><tr><th>학원명</th><th>거리</th><th>분야</th><th>셔틀(서판교)</th><th>전화</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="note" style="margin-top:11px"><b>초1 적합도</b> — 영어·독서 계열은 저학년 적합 / 입시형 수학은 고학년 권장 / 예체능은 위 5번 참고.</div>
+  </section>
+
+  <!-- 7 -->
+  <section id="s7" class="reveal">
+    <div class="sechead"><span class="num">7</span><h2>부모 안심 체크리스트 <span class="h2sub">학원 방문 때 탭하며 점검하세요</span></h2></div>
+    <div class="subhead"><span class="bar"></span>통학버스</div>
+    <div class="checks" data-group="bus"></div>
+    <div class="subhead"><span class="bar"></span>학원 환경 (저학년·여아)</div>
+    <div class="checks" data-group="env"></div>
+    <div class="subhead"><span class="bar"></span>아이 관점</div>
+    <div class="checks" data-group="kid"></div>
+  </section>
+
+  <!-- 8 -->
+  <section id="s8" class="reveal">
+    <div class="sechead"><span class="num">8</span><h2>다음 단계</h2></div>
+    <div class="card">
+      <ol class="steps">
+        <li>우선 종목 정하기: 예체능 1개(태권도/미술/발레) + 영어(놀이·독서) 1개로 가볍게 시작.</li>
+        <li>후보 학원의 셔틀 여부를 <a href="https://learns.academy" target="_blank" rel="noopener" style="color:var(--teal-deep);font-weight:700">런즈(learns.academy)</a>에서 1차 확인.</li>
+        <li><a href="https://www.schoolsafe24.or.kr" target="_blank" rel="noopener" style="color:var(--teal-deep);font-weight:700">학교안전24</a>에서 차량 등록·보험·안전교육 조회.</li>
+        <li>체험수업·상담 예약 후, 위 7번 체크리스트로 점검.</li>
+        <li>입학(2027년 3월) 전 겨울방학에 1~2곳 체험으로 적응 워밍업.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="s9" class="reveal">
+    <div class="sechead"><span class="num">9</span><h2>참고 및 주의사항</h2></div>
+    <div class="card flat">
+      <ul class="clean">
+        <li>거리는 직선거리 추정치로, 실제 셔틀 동선과 차이가 있을 수 있음.</li>
+        <li>통학버스 안전 요건은 도로교통법 등 관련 규정 기준이며, 학원별 실제 운영은 다를 수 있어 직접 확인 필요.</li>
+        <li>셔틀 노선·시간·운영은 학기·수요에 따라 변경될 수 있음.</li>
+        <li>학원 정보(연락처·종목)는 변동 가능하므로 등록 전 재확인 권장.</li>
+        <li>본 가이드는 공개 자료(학원 공개 노선표, 공개 학원정보, 도로교통 안전 규정 안내 등)를 근거로 작성됨.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ft-links">
+      <a class="flink" href="https://www.schoolsafe24.or.kr" target="_blank" rel="noopener">학교안전24 ↗</a>
+      <a class="flink" href="https://learns.academy" target="_blank" rel="noopener">런즈 학원정보 ↗</a>
+    </div>
+    <p>판교 낙생초 입학 예정 자녀 학원·통학 안심 가이드 · 가정 내 검토용</p>
+    <p>마지막 업데이트 2026.06.27 · 등록 전 각 학원에 직접 확인하세요.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var tel = function(p){ return "tel:" + String(p).replace(/[^0-9]/g,""); };
+  var mapUrl = function(n){ return "https://map.naver.com/p/search/" + encodeURIComponent(n); };
+  var esc = function(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); };
+
+  // academy data
+  var arts = [
+    {g:"태권도", n:"판교원경희대태권도장", loc:"판교동 · 낙생초 인근", p:"031-8017-4122"},
+    {g:"태권도", n:"KTIGERS태권도", loc:"운중동", p:"031-8016-1003"},
+    {g:"태권도", n:"경희태권도", loc:"판교동", p:"031-8017-8107"},
+    {g:"미술", n:"벨팡스 미술학원", loc:"판교동 · 인근", p:"031-602-6051"},
+    {g:"미술", n:"오브제미술학원", loc:"운중동", p:"070-4652-1278"},
+    {g:"미술", n:"이화아이그림터미술학원", loc:"판교동", p:"031-707-7804"},
+    {g:"발레", n:"판교이화발레아카데미", loc:"운중동", p:"010-8908-1243"},
+    {g:"발레", n:"그랑제이발레학원", loc:"운중동", p:"031-706-8210"},
+    {g:"피아노", n:"판교클랑피아노 교습소", loc:"원마을 현대힐스테이트", p:""}
+  ];
+  var engs = [
+    {g:"영어독서", n:"리드인 서판교점", loc:"영어독서·논술 · 운중동", p:"010-4826-8296"},
+    {g:"영어", n:"정예포람학원", loc:"영어·논술 · 운중동", p:"031-707-0477"},
+    {g:"영어", n:"Honors Academy", loc:"영어 · 운중동", p:"070-7755-4620"}
+  ];
+
+  function acCard(a){
+    var call = a.p
+      ? '<a class="btn call" href="'+tel(a.p)+'">📞 '+esc(a.p)+'</a>'
+      : '<span class="btn disabled">전화 정보 없음</span>';
+    return '<div class="ac"><div class="top"><div class="nm">'+esc(a.n)+'</div>'
+      + '<span class="badge">'+esc(a.g)+'</span></div>'
+      + '<div class="loc">'+esc(a.loc)+'</div>'
+      + '<div class="actions">'+call
+      + '<a class="btn map" href="'+mapUrl(a.n)+'" target="_blank" rel="noopener">🗺️ 지도</a></div></div>';
+  }
+  document.getElementById("arts").innerHTML = arts.map(acCard).join("");
+  document.getElementById("engs").innerHTML = engs.map(acCard).join("");
+
+  // distance table
+  var dist = [
+    ["Honors Academy","0.8km","영어","near","근거리(도보권)","070-7755-4620",false],
+    ["판교엘리트어학원","1.2km","영어","warn","확인 필요","031-8017-4081",false],
+    ["정예포람학원","1.5km","영어·논술","near","근거리(도보권)","031-707-0477",false],
+    ["페이지영어학원(삼평)","1.8km","영어","warn","확인 필요","031-8016-0560",false],
+    ["디랩코딩학원 판교캠퍼스","1.9km","코딩","near","근거리(도보권)","031-526-9301",false],
+    ["유신학원","1.9km","종합","near","근거리(도보권)","031-8017-7779",false],
+    ["리드인 서판교점","2.0km","영어독서","near","근거리(도보권)","010-4826-8296",false],
+    ["청담러닝 분당","2.2km","영어","warn","확인 필요","031-707-9407",false],
+    ["올인원수학전문학원","2.2km","수학","warn","확인 필요","031-716-1393",false],
+    ["수학의아침 수내 초등관","2.2km","수학","warn","운영(노선 확인)","031-698-3400",false],
+    ["아이비어학원","2.3km","영어","warn","확인 필요","031-717-0596",false],
+    ["정상어학원 분당이매","2.7km","영어","warn","확인 필요","031-702-7999",false],
+    ["수이학원","2.8km","수학","ok","노선 확인됨","031-713-8011",true]
+  ];
+  var tb = document.querySelector("#distTable tbody");
+  tb.innerHTML = dist.map(function(r){
+    return '<tr'+(r[6]?' class="best"':'')+'>'
+      + '<td class="nmcell" data-label="학원명">'+esc(r[0])+'</td>'
+      + '<td data-label="거리">'+esc(r[1])+'</td>'
+      + '<td data-label="분야">'+esc(r[2])+'</td>'
+      + '<td data-label="셔틀"><span class="pill '+r[3]+'">'+esc(r[4])+'</span></td>'
+      + '<td data-label="전화"><a href="'+tel(r[5])+'">'+esc(r[5])+'</a></td></tr>';
+  }).join("");
+
+  // checklist
+  var checks = {
+    bus:[
+      "동승 선생님이 탑승하나요? (저학년 필수)",
+      "우리 집(단지)·학교 앞까지 오나요? 노선·시간은?",
+      "실시간 승하차 알림 앱을 쓰나요?",
+      "신고필증·보험·안전교육 수료가 되어 있나요?",
+      "토요일·방학에도 운행하나요?"
+    ],
+    env:[
+      "1학년/저학년 별도 반이 있나요? 수업 분위기는?",
+      "여자 동승 선생님·담임이 있나요? (요청 가능 여부)",
+      "저학년 화장실 동행·안전 지도는 어떻게 하나요?",
+      "하원 시 보호자 인계 방식(누가, 어떻게)은?",
+      "출입 통제·CCTV·비상 연락 체계가 있나요?"
+    ],
+    kid:[
+      "체험수업에서 아이가 즐거워하나요?",
+      "숙제·시험 부담이 1학년에 과하지 않나요?"
+    ]
+  };
+  var tick = '<span class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span>';
+  function store(get, key, val){
+    try{ return get ? localStorage.getItem(key) : localStorage.setItem(key, val); }
+    catch(e){ return null; }
+  }
+  Object.keys(checks).forEach(function(group){
+    var box = document.querySelector('.checks[data-group="'+group+'"]');
+    box.innerHTML = checks[group].map(function(t,i){
+      var key = "naksaeng_chk_"+group+"_"+i;
+      var on = store(true, key) === "1";
+      return '<label class="check"><input type="checkbox" data-key="'+key+'"'+(on?' checked':'')+'>'
+        + tick + '<span class="lbl">'+esc(t)+'</span></label>';
+    }).join("");
+  });
+  document.addEventListener("change", function(e){
+    var el = e.target;
+    if(el && el.matches && el.matches('.check input')){
+      store(false, el.getAttribute("data-key"), el.checked ? "1" : "0");
+    }
+  });
+})();
+</script>
+</body>
+</html>
