@@ -408,6 +408,8 @@
       <div class="subhead"><span class="bar"></span>영어 — 놀이·독서 기반 (저학년 적합)</div>
       <div class="note warm"><b>영유</b> 표시는 영어유치원(유아영어학원)이에요. <b>초등 방과후 반이 없을 수 있으니</b> 등록 전 초등 과정 운영 여부를 꼭 확인하세요.</div>
       <div class="acards" id="engs"></div>
+      <div class="subhead"><span class="bar"></span>국어·독서·논술 (저학년은 가볍게)</div>
+      <div class="acards" id="korean"></div>
       <div class="subhead"><span class="bar"></span>수학·종합 — 지금은 후순위</div>
       <div class="note warm">입시형 수학(수이학원 등)은 <b>셔틀은 우수하나 저학년 시작용으로는 권장하지 않아요.</b> 사고력·놀이수학으로 가볍게 접하려면 종합학원(유신학원 등) 초등 저학년반 상담 정도가 적당합니다.</div>
     </div>
@@ -599,14 +601,20 @@
     ],
     engs: [
       {g:"영어", n:"틸아임일레븐 판교", loc:"영어몰입 · 판교(낙생초 인근)", p:"031-711-2177", yu:true, web:"https://tilliameleven.com"},
+      {g:"영어", n:"레지오이엘씨 판교", loc:"영유+초등 애프터 · 백현동(동판교)", p:"031-708-2233", yu:true},
       {g:"영어독서", n:"리드인 서판교점", loc:"영어독서·논술 · 운중동", p:"010-4826-8296"},
       {g:"영어", n:"정예포람학원", loc:"영어·논술 · 운중동", p:"031-707-0477"},
       {g:"영어", n:"Honors Academy", loc:"영어 · 운중동", p:"070-7755-4620"}
     ],
+    korean: [
+      {g:"독서·논술", n:"토론과논술 판교점", loc:"독서·논술·토론 · 판교동(낙생초 인근)", p:"031-702-5628"}
+    ],
     dist: [
+      ["토론과논술 판교점","0.4km","독서·논술","near","근거리(도보권)","031-702-5628",false],
       ["Honors Academy","0.8km","영어","near","근거리(도보권)","070-7755-4620",false],
       ["틸아임일레븐 판교","0.9km","영어몰입","near","근거리(도보권)","031-711-2177",false,true],
       ["판교엘리트어학원","1.2km","영어","warn","확인 필요","031-8017-4081",false],
+      ["레지오이엘씨 판교","1.4km","영어","warn","확인 필요","031-708-2233",false,true],
       ["정예포람학원","1.5km","영어·논술","near","근거리(도보권)","031-707-0477",false],
       ["페이지영어학원(삼평)","1.8km","영어","warn","확인 필요","031-8016-0560",false],
       ["디랩코딩학원 판교캠퍼스","1.9km","코딩","near","근거리(도보권)","031-526-9301",false,false,"https://www.daddyslab.com/dlab_pangyo"],
@@ -762,6 +770,7 @@
   }
   $("#arts").innerHTML = DATA.arts.map(acCard).join("");
   $("#engs").innerHTML = DATA.engs.map(acCard).join("");
+  $("#korean").innerHTML = DATA.korean.map(acCard).join("");
 
   $("#distTable tbody").innerHTML = DATA.dist.map(function(r){
     return '<tr'+(r[6]?' class="best"':'')+'>'
@@ -913,7 +922,7 @@
 
   var ALL = [], seenAc = {};
   function pushAc(a){ if(a && a.n && !seenAc[a.n]){ seenAc[a.n]=1; ALL.push(a); } }
-  DATA.arts.forEach(pushAc); DATA.engs.forEach(pushAc);
+  DATA.arts.forEach(pushAc); DATA.engs.forEach(pushAc); DATA.korean.forEach(pushAc);
   DATA.dist.forEach(function(r){ pushAc({ n:r[0], g:r[2], loc:r[2]+" · 낙생초에서 "+r[1], p:r[5], yu:r[7]||false, web:r[8]||"" }); });
 
   function loadMy(){ try{ return JSON.parse(localStorage.getItem("naksaeng_my_academies")||"[]"); }catch(e){ return []; } }
