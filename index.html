@@ -120,6 +120,12 @@
   .weblink.alt{color:var(--ink-soft); border-color:var(--line-strong)}
   .weblink.alt:hover{background:#EEF2F4}
 
+  /* user-added academies */
+  .my-wrap{margin-bottom:16px}
+  .my-wrap .ac{margin-bottom:0}
+  .my-del{display:inline-flex; align-items:center; gap:5px; margin-top:8px; appearance:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:12.5px; color:var(--red); background:#fff; border:1px solid var(--red-line); border-radius:8px; padding:7px 12px}
+  .my-del:hover{background:#FBECE9}
+
   /* per-academy memo */
   .memo-box{margin-top:11px; padding-top:11px; border-top:1px dashed var(--line)}
   .memo-add{appearance:none; cursor:pointer; font-family:inherit; width:100%; text-align:left; font-size:13px; font-weight:700; color:var(--teal-deep); background:var(--surface-2); border:1px dashed var(--teal-line); border-radius:9px; padding:9px 11px; transition:.15s}
@@ -147,8 +153,9 @@
   .fav-export-box{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:13px; margin-bottom:13px; box-shadow:var(--shadow-sm)}
   #favExportTa{min-height:120px; resize:vertical; width:100%}
 
-  .seg{display:inline-flex; background:#EDF2F4; border:1px solid var(--line); border-radius:999px; padding:3px; margin:2px 0 14px; gap:2px}
-  .segbtn{appearance:none; border:none; background:none; font-family:inherit; font-size:13.5px; font-weight:700; color:var(--ink-soft); padding:7px 17px; border-radius:999px; cursor:pointer; transition:background .15s, color .15s}
+  .seg{display:inline-flex; max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; background:#EDF2F4; border:1px solid var(--line); border-radius:999px; padding:3px; margin:2px 0 14px; gap:2px}
+  .seg::-webkit-scrollbar{display:none}
+  .segbtn{appearance:none; flex:none; white-space:nowrap; border:none; background:none; font-family:inherit; font-size:13.5px; font-weight:700; color:var(--ink-soft); padding:7px 14px; border-radius:999px; cursor:pointer; transition:background .15s, color .15s}
   .segbtn.active{background:#fff; color:var(--teal-deep); box-shadow:var(--shadow-sm)}
 
   .tablewrap{border:1px solid var(--line); border-radius:var(--r); overflow:hidden; box-shadow:var(--shadow-sm)}
@@ -391,6 +398,7 @@
       <button class="segbtn active" data-view="rec">추천</button>
       <button class="segbtn" data-view="all">거리순</button>
       <button class="segbtn" data-view="fav">⭐ 관심</button>
+      <button class="segbtn" data-view="my">➕ 추가</button>
     </div>
 
     <div data-view-panel="rec">
@@ -428,6 +436,21 @@
         </div>
       </div>
       <div id="favList"></div>
+    </div>
+    <div data-view-panel="my" hidden>
+      <div class="note">목록에 없는 학원을 직접 추가하세요. 추가하면 카드로 보이고 <b>★·메모·홈페이지</b> 기능을 그대로 쓸 수 있어요. (이 기기에 저장)</div>
+      <div class="sch-form">
+        <div class="ff"><label class="ff-l" for="myName">학원 이름 <span style="color:var(--red)">*</span></label><input class="ff-in" id="myName" placeholder="예: 판교 OO영어학원" autocomplete="off"></div>
+        <div class="ff-row">
+          <div class="ff"><label class="ff-l" for="myGenre">분야</label><input class="ff-in" id="myGenre" placeholder="영어 / 수학 / 미술 등" autocomplete="off"></div>
+          <div class="ff"><label class="ff-l" for="myLoc">위치</label><input class="ff-in" id="myLoc" placeholder="예: 운중동" autocomplete="off"></div>
+        </div>
+        <div class="ff"><label class="ff-l" for="myPhone">전화번호</label><input class="ff-in" id="myPhone" type="tel" placeholder="예: 031-123-4567" autocomplete="off"></div>
+        <div class="ff"><label class="ff-l" for="myWeb">홈페이지·블로그 (선택)</label><input class="ff-in" id="myWeb" type="url" placeholder="https://..." autocomplete="off"></div>
+        <div class="ff-hint" id="myHint"></div>
+        <div class="ff-actions"><button type="button" class="btn2 primary" id="myAdd">+ 학원 추가</button></div>
+      </div>
+      <div id="myList"></div>
     </div>
   </section>
 
@@ -893,9 +916,14 @@
   DATA.arts.forEach(pushAc); DATA.engs.forEach(pushAc);
   DATA.dist.forEach(function(r){ pushAc({ n:r[0], g:r[2], loc:r[2]+" · 낙생초에서 "+r[1], p:r[5], yu:r[7]||false, web:r[8]||"" }); });
 
+  function loadMy(){ try{ return JSON.parse(localStorage.getItem("naksaeng_my_academies")||"[]"); }catch(e){ return []; } }
+  function saveMy(a){ try{ localStorage.setItem("naksaeng_my_academies", JSON.stringify(a)); }catch(e){} }
+  var myAc = loadMy();
+  function favPool(){ var pool=ALL.slice(), seen={}; ALL.forEach(function(a){ seen[a.n]=1; }); myAc.forEach(function(a){ if(!seen[a.n]){ seen[a.n]=1; pool.push(a); } }); return pool; }
+
   function renderFav(){
     var c = $("#favList"); if(!c) return;
-    var items = ALL.filter(function(a){ return getFav(a.n) || getMemo(a.n); });
+    var items = favPool().filter(function(a){ return getFav(a.n) || getMemo(a.n); });
     var ex = $("#favExport");
     if(!items.length){
       c.innerHTML = '<div class="soon"><b>관심·메모한 학원이 없어요</b><br>학원 카드의 ★를 누르거나 메모를 남기면 여기에 모여요. ‘거리순’ 표에서도 ★로 담을 수 있어요.</div>';
@@ -908,7 +936,7 @@
   }
 
   function favExportText(){
-    var items = ALL.filter(function(a){ return getFav(a.n) || getMemo(a.n); });
+    var items = favPool().filter(function(a){ return getFav(a.n) || getMemo(a.n); });
     var out = ["[낙생초 학원 메모]", ""];
     items.forEach(function(a){
       out.push("● "+(getFav(a.n)?"★ ":"")+a.n+" — "+a.g+(a.p?" / "+a.p:""));
@@ -937,6 +965,34 @@
   })();
 
   renderFav();
+
+  /* ===== 사용자 학원 추가 ===== */
+  function renderMy(){
+    var box = $("#myList"); if(!box) return;
+    if(!myAc.length){
+      box.innerHTML = '<div class="soon"><b>추가한 학원이 없어요</b><br>위 양식으로 직접 찾은 학원을 추가하면 카드로 보이고 ★·메모·홈페이지도 사용할 수 있어요.</div>';
+      return;
+    }
+    box.innerHTML = '<div class="subhead"><span class="bar"></span>내가 추가한 학원 ('+myAc.length+')</div>'
+      + myAc.map(function(a){ return '<div class="my-wrap">'+acCard(a)+'<button type="button" class="my-del" data-mydel="'+esc(a.id)+'">🗑 이 학원 삭제</button></div>'; }).join("");
+  }
+  (function(){
+    var add=$("#myAdd"); if(!add) return;
+    add.addEventListener("click", function(){
+      var n=$("#myName").value.trim();
+      if(!n){ $("#myHint").textContent="학원 이름은 꼭 입력해 주세요."; $("#myName").focus(); return; }
+      var web=$("#myWeb").value.trim(); if(web && !/^https?:\/\//i.test(web)){ web="https://"+web; }
+      myAc.push({ id:"m"+Date.now().toString(36)+Math.random().toString(36).slice(2,5), n:n, g:($("#myGenre").value.trim()||"기타"), loc:($("#myLoc").value.trim()||"직접 추가"), p:$("#myPhone").value.trim(), web:web });
+      saveMy(myAc); renderMy(); renderFav();
+      $("#myName").value=""; $("#myGenre").value=""; $("#myLoc").value=""; $("#myPhone").value=""; $("#myWeb").value="";
+      $("#myHint").textContent="추가됐어요 ✓"; setTimeout(function(){ var h=$("#myHint"); if(h) h.textContent=""; },1600);
+    });
+  })();
+  document.addEventListener("click", function(e){
+    var d = e.target.closest ? e.target.closest("[data-mydel]") : null;
+    if(d){ var id=d.getAttribute("data-mydel"); myAc = myAc.filter(function(x){ return x.id!==id; }); saveMy(myAc); renderMy(); renderFav(); }
+  });
+  renderMy();
 
   /* TAB system (hash routing) */
   var TAB_LABEL = {home:"홈", safety:"안전", academy:"학원", schedule:"일정", check:"체크", more:"모음"};
