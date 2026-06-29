@@ -177,7 +177,15 @@
     table.acad td::before{content:attr(data-label); color:var(--faint); font-weight:700; text-align:left}
     table.acad td.nmcell{font-weight:800; font-size:15px; padding-top:6px}
     table.acad td.nmcell::before{content:""}
+    table.acad tr.grp td{display:block; text-align:left; padding:9px 12px}
+    table.acad tr.grp td::before{content:""}
   }
+
+  .subseg{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 12px}
+  .subsegbtn{appearance:none; cursor:pointer; font-family:inherit; font-size:12.5px; font-weight:700; color:var(--ink-soft); background:var(--surface); border:1px solid var(--line-strong); border-radius:999px; padding:6px 13px; transition:.15s}
+  .subsegbtn:hover{border-color:var(--teal-line)}
+  .subsegbtn.active{background:var(--teal); border-color:var(--teal); color:#fff}
+  table.acad tr.grp td{background:var(--teal-soft); color:var(--teal-deep); font-weight:800; font-size:13px; padding:9px 12px; border-top:2px solid var(--teal-line)}
 
   .checks{display:grid; gap:7px; margin-top:2px}
   .check{display:flex; align-items:flex-start; gap:11px; background:var(--surface); position:relative; border:1px solid var(--line); border-radius:11px; padding:11px 13px; cursor:pointer; box-shadow:var(--shadow-sm); transition:border-color .15s}
@@ -415,7 +423,12 @@
     </div>
 
     <div data-view-panel="all" hidden>
-      <div class="note">분당 학원 거리순(학과 중심). 거리는 직선거리 추정치, 전화번호는 탭하면 바로 통화됩니다.</div>
+      <div class="note">낙생초 기준 직선거리 추정치예요. 아래에서 보기 방식을 바꿔 <b>가까운 순 · 거리대별 · 분야별</b>로 모아볼 수 있어요.</div>
+      <div class="subseg" id="distMode">
+        <button class="subsegbtn active" data-mode="dist">거리순</button>
+        <button class="subsegbtn" data-mode="band">📍 거리대별</button>
+        <button class="subsegbtn" data-mode="genre">🏷️ 분야별</button>
+      </div>
       <div class="tablewrap"><table class="acad" id="distTable">
         <thead><tr><th>학원명</th><th>거리</th><th>분야</th><th>셔틀(서판교)</th><th>전화</th></tr></thead>
         <tbody></tbody>
@@ -772,14 +785,49 @@
   $("#engs").innerHTML = DATA.engs.map(acCard).join("");
   $("#korean").innerHTML = DATA.korean.map(acCard).join("");
 
-  $("#distTable tbody").innerHTML = DATA.dist.map(function(r){
+  function distRowHtml(r){
     return '<tr'+(r[6]?' class="best"':'')+'>'
       +'<td class="nmcell" data-label="학원명"><button type="button" class="star'+(getFav(r[0])?' on':'')+'" data-fav="'+esc(r[0])+'" aria-label="관심 표시">★</button> '+esc(r[0])+'</td>'
       +'<td data-label="거리">'+esc(r[1])+'</td>'
       +'<td data-label="분야">'+esc(r[2])+(r[7]?' <span class="pill yu">영유</span>':'')+'</td>'
       +'<td data-label="셔틀"><span class="pill '+r[3]+'">'+esc(r[4])+'</span></td>'
       +'<td data-label="전화"><a href="'+tel(r[5])+'">'+esc(r[5])+'</a></td></tr>';
-  }).join("");
+  }
+  function distGrp(label){ return '<tr class="grp"><td colspan="5">'+esc(label)+'</td></tr>'; }
+  function distGenreKey(g){ if(g.indexOf("영어")>=0) return "영어"; if(g.indexOf("수학")>=0) return "수학"; return g; }
+  function byKm(a,b){ return parseFloat(a[1])-parseFloat(b[1]); }
+  var distMode = "dist";
+  function renderDist(){
+    var tb = $("#distTable tbody"); if(!tb) return;
+    var rows = DATA.dist.slice(), html = "";
+    if(distMode==="genre"){
+      var groups={}, order=[];
+      rows.forEach(function(r){ var k=distGenreKey(r[2]); if(!groups[k]){ groups[k]=[]; order.push(k); } groups[k].push(r); });
+      order.sort(function(a,b){ return Math.min.apply(null,groups[a].map(function(r){return parseFloat(r[1]);})) - Math.min.apply(null,groups[b].map(function(r){return parseFloat(r[1]);})); });
+      order.forEach(function(k){ html += distGrp("🏷️ "+k+" ("+groups[k].length+")"); groups[k].sort(byKm).forEach(function(r){ html += distRowHtml(r); }); });
+    } else if(distMode==="band"){
+      rows.sort(byKm); var last=null;
+      rows.forEach(function(r){
+        var km=parseFloat(r[1]);
+        var lab = km<=1 ? "📍 도보권 · 1km 이내" : (km<=2 ? "🚶 가까움 · 1~2km" : "🚌 조금 멀어요 · 2km 이상");
+        if(lab!==last){ html += distGrp(lab); last=lab; }
+        html += distRowHtml(r);
+      });
+    } else {
+      rows.sort(byKm); html = rows.map(distRowHtml).join("");
+    }
+    tb.innerHTML = html;
+  }
+  renderDist();
+  (function(){
+    var ctl=$("#distMode"); if(!ctl) return;
+    ctl.addEventListener("click", function(e){
+      var b=e.target.closest("[data-mode]"); if(!b) return;
+      distMode=b.getAttribute("data-mode");
+      $$(".subsegbtn", ctl).forEach(function(x){ x.classList.toggle("active", x===b); });
+      renderDist();
+    });
+  })();
 
   var tick = '<span class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span>';
   Object.keys(DATA.checks).forEach(function(group){
