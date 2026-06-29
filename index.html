@@ -433,7 +433,7 @@
         <thead><tr><th>학원명</th><th>거리</th><th>분야</th><th>셔틀(서판교)</th><th>전화</th></tr></thead>
         <tbody></tbody>
       </table></div>
-      <div class="note" style="margin-top:11px"><b>초1 적합도</b> — 영어·독서 계열은 저학년 적합 / 입시형 수학은 고학년 권장 / 예체능은 ‘추천 학원’ 탭 참고. <b>영유</b>는 영어유치원(초등 반 운영 여부 확인 필요).</div>
+      <div class="note" style="margin-top:11px"><b>초1 적합도</b> — 영어·독서 계열은 저학년 적합 / 입시형 수학은 고학년 권장. <b>예체능(태권도·미술·발레·피아노)</b>도 함께 넣었어요 — 셔틀은 도장·학원마다 다르니 상담 시 확인하세요. <b>영유</b>는 영어유치원(초등 반 운영 여부 확인 필요).</div>
     </div>
     <div data-view-panel="fav" hidden>
       <div class="fav-bar">
@@ -638,7 +638,16 @@
       ["수학의아침 수내 초등관","2.2km","수학","warn","운영(노선 확인)","031-698-3400",false,false,"https://e.sooaa.net"],
       ["아이비어학원","2.3km","영어","warn","확인 필요","031-717-0596",false],
       ["정상어학원 분당이매","2.7km","영어","warn","확인 필요","031-702-7999",false],
-      ["수이학원","2.8km","수학","ok","노선 확인됨","031-713-8011",true]
+      ["수이학원","2.8km","수학","ok","노선 확인됨","031-713-8011",true],
+      ["판교원경희대태권도장","0.5km","태권도","near","근거리(도보권)","031-8017-4122",false],
+      ["판교클랑피아노교습소","0.6km","피아노","near","근거리(도보권)","",false],
+      ["벨팡스 미술학원","0.7km","미술","near","근거리(도보권)","031-602-6051",false],
+      ["경희태권도","1.0km","태권도","near","근거리(도보권)","031-8017-8107",false],
+      ["이화아이그림터미술학원","1.0km","미술","near","근거리(도보권)","031-707-7804",false],
+      ["KTIGERS태권도","1.5km","태권도","warn","확인 필요","031-8016-1003",false],
+      ["그랑제이발레학원","1.8km","발레","warn","확인 필요","031-706-8210",false],
+      ["판교이화발레아카데미","1.9km","발레","warn","확인 필요","010-8908-1243",false],
+      ["오브제미술학원","2.0km","미술","warn","확인 필요","070-4652-1278",false]
     ],
     checks: {
       bus: [
@@ -791,7 +800,7 @@
       +'<td data-label="거리">'+esc(r[1])+'</td>'
       +'<td data-label="분야">'+esc(r[2])+(r[7]?' <span class="pill yu">영유</span>':'')+'</td>'
       +'<td data-label="셔틀"><span class="pill '+r[3]+'">'+esc(r[4])+'</span></td>'
-      +'<td data-label="전화"><a href="'+tel(r[5])+'">'+esc(r[5])+'</a></td></tr>';
+      +'<td data-label="전화">'+(r[5]?'<a href="'+tel(r[5])+'">'+esc(r[5])+'</a>':'<span style="color:var(--faint)">전화 문의</span>')+'</td></tr>';
   }
   function distGrp(label){ return '<tr class="grp"><td colspan="5">'+esc(label)+'</td></tr>'; }
   function distGenreKey(g){ if(g.indexOf("영어")>=0) return "영어"; if(g.indexOf("수학")>=0) return "수학"; return g; }
